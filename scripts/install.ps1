@@ -74,28 +74,33 @@ Write-Info ""
 # Step 2: Select preset
 Write-Info "Step 2: Select configuration preset..."
 
-$AvailablePresets = @(
-    [PSCustomObject]@{ Name = "base"; Description = "Base configuration (minimal setup)" },
-    [PSCustomObject]@{ Name = "web-dev"; Description = "Web development (Angular, Django, TypeScript)" },
-    [PSCustomObject]@{ Name = "data-science"; Description = "Data science (ML, pandas, scikit-learn, visualization)" },
-    [PSCustomObject]@{ Name = "devops"; Description = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)" },
-    [PSCustomObject]@{ Name = "testing"; Description = "Testing focused (pytest, unit/integration tests)" }
-)
+# Define presets with Name and Description
+$PresetDefinitions = @{
+    "base" = "Base configuration (minimal setup)"
+    "web-dev" = "Web development (Angular, Django, TypeScript)"
+    "data-science" = "Data science (ML, pandas, scikit-learn, visualization)"
+    "devops" = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
+    "testing" = "Testing focused (pytest, unit/integration tests)"
+}
+
+# Create ordered list for display
+$PresetNames = @("base", "web-dev", "data-science", "devops", "testing")
 
 if ($Interactive -and -not $Preset) {
     Write-Info "Available presets:"
-    for ($i = 0; $i -lt $AvailablePresets.Count; $i++) {
-        $preset = $AvailablePresets[$i]
-        Write-Info "  [$($i + 1)] $($preset.Name) - $($preset.Description)"
+    for ($i = 0; $i -lt $PresetNames.Count; $i++) {
+        $presetName = $PresetNames[$i]
+        $presetDesc = $PresetDefinitions[$presetName]
+        Write-Info "  [$($i + 1)] $presetName - $presetDesc"
     }
     Write-Info ""
 
     do {
-        $selection = Read-Host "Select preset [1-$($AvailablePresets.Count)]"
+        $selection = Read-Host "Select preset [1-$($PresetNames.Count)]"
         $selectionNum = [int]$selection
-    } while ($selectionNum -lt 1 -or $selectionNum -gt $AvailablePresets.Count)
+    } while ($selectionNum -lt 1 -or $selectionNum -gt $PresetNames.Count)
 
-    $Preset = $AvailablePresets[$selectionNum - 1].Name
+    $Preset = $PresetNames[$selectionNum - 1]
 }
 
 if (-not $Preset) {
