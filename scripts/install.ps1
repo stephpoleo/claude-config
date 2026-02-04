@@ -75,11 +75,11 @@ Write-Info ""
 Write-Info "Step 2: Select configuration preset..."
 
 $AvailablePresets = @(
-    @{ Name = "base"; Description = "Base configuration (minimal setup)" },
-    @{ Name = "web-dev"; Description = "Web development (Angular, Django, TypeScript)" },
-    @{ Name = "data-science"; Description = "Data science (ML, pandas, scikit-learn, visualization)" },
-    @{ Name = "devops"; Description = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)" },
-    @{ Name = "testing"; Description = "Testing focused (pytest, unit/integration tests)" }
+    [PSCustomObject]@{ Name = "base"; Description = "Base configuration (minimal setup)" },
+    [PSCustomObject]@{ Name = "web-dev"; Description = "Web development (Angular, Django, TypeScript)" },
+    [PSCustomObject]@{ Name = "data-science"; Description = "Data science (ML, pandas, scikit-learn, visualization)" },
+    [PSCustomObject]@{ Name = "devops"; Description = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)" },
+    [PSCustomObject]@{ Name = "testing"; Description = "Testing focused (pytest, unit/integration tests)" }
 )
 
 if ($Interactive -and -not $Preset) {
@@ -124,7 +124,7 @@ $AllSkills = Get-ChildItem -Path "$ScriptDir\skills" -Recurse -Filter "SKILL.md"
     $category = Split-Path (Split-Path $skillPath -Parent) -Leaf
     $skillName = Split-Path $skillPath -Leaf
 
-    @{
+    [PSCustomObject]@{
         Name = $skillName
         Category = $category
         Path = $skillPath
@@ -237,11 +237,11 @@ $PresetAgents = @{
 $SelectedAgents = $PresetAgents[$Preset]
 
 # Get all available agents
-$AllAgents = Get-ChildItem -Path "$ScriptDir\agents" -Recurse -Filter "*.md" | ForEach-Object {
+$AllAgents = Get-ChildItem -Path "$ScriptDir\agents" -Recurse -Filter "*.md" | Where-Object { $_.Name -ne "README.md" } | ForEach-Object {
     $category = Split-Path (Split-Path $_.FullName -Parent) -Leaf
     $agentName = $_.BaseName
 
-    @{
+    [PSCustomObject]@{
         Name = $agentName
         Category = $category
         Path = $_.FullName
