@@ -217,6 +217,42 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 
 ---
 
+### Utilities
+
+#### pr-helper
+**Categorías**: utilities, git, workflow, pull-request
+**Archivo**: `skills/utilities/pr-helper/SKILL.md`
+
+```
+/pr-helper commit
+/pr-helper pr
+/pr-helper both
+```
+
+**Características**:
+- Analiza cambios en código automáticamente
+- Genera mensajes de commit estructurados (Conventional Commits)
+- Genera descripciones completas de Pull Request
+- Templates personalizados por tipo de proyecto:
+  - Web Dev (Angular/Django)
+  - Data Science
+  - DevOps
+- Llena automáticamente:
+  - Descripción de cambios
+  - Lista de archivos modificados
+  - Tipo de cambio detectado
+  - Checklist según proyecto
+  - Test plan sugerido
+- Integración con GitHub CLI (gh)
+- Configuración personalizable por proyecto
+
+**Actions**:
+- `commit` - Solo mensaje de commit
+- `pr` - Solo descripción de PR
+- `both` - Ambos (commit + PR)
+
+---
+
 ### Quality & Testing
 
 #### test-suite
@@ -290,9 +326,12 @@ Genera reportes detallados en `docs/code-reviews/` con:
 
 ### Quality & Testing (2)
 - `test-suite` - Test suites completos
-- `clean-code-review` - Review con Clean Code y SOLID
+- `clean-code-review` - Review con Clean Code y SOLID (con reportes markdown)
 
-### Total: 13 skills
+### Utilities (1)
+- `pr-helper` - Generador de commits y PRs desde cambios de código
+
+### Total: 14 skills
 
 ## Stack Tecnológico
 

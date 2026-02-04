@@ -78,7 +78,7 @@ mi-proyecto/
 └── .claude-config/            # Submodule (compartido)
 ```
 
-## Skills Disponibles (10)
+## Skills Disponibles (14)
 
 ### Web Development
 - `angular-component` - Crear componentes Angular con TypeScript, Signals
@@ -99,7 +99,10 @@ mi-proyecto/
 
 ### Quality & Testing
 - `test-suite` - Crear test suites completos
-- `clean-code-review` - Review de código con SOLID y Clean Code
+- `clean-code-review` - Review de código con SOLID y Clean Code (genera reportes .md)
+
+### Utilities
+- `pr-helper` - Generador de commits y PRs desde cambios de código
 
 Ver catálogo completo en [skills/README.md](skills/README.md)
 

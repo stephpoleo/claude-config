@@ -20,7 +20,7 @@ Este sistema está diseñado para proyectos con:
 
 ```
 claude-config/
-├── skills/              # 13 skills especializados
+├── skills/              # 14 skills especializados
 │   ├── web-dev/        # angular-component, api-design
 │   ├── backend/        # django-api
 │   ├── data/           # data-pipeline, sql-optimization, data-visualization
@@ -28,7 +28,8 @@ claude-config/
 │   ├── cloud/          # aws-setup, gcp-setup
 │   ├── devops/         # docker-setup, github-actions
 │   ├── quality/        # clean-code-review
-│   └── testing/        # test-suite
+│   ├── testing/        # test-suite
+│   └── utilities/      # pr-helper
 ├── agents/              # 6 agents expertos
 │   ├── web-dev/        # angular-specialist.md
 │   ├── backend/        # python-django-specialist.md
