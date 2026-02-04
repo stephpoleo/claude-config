@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "Configuration preset for testing-focused projects",
+  "extends": "./base.json",
+  "model": "sonnet",
+  "permissions": {
+    "bash": "always-allow",
+    "read": "always-allow",
+    "write": "ask",
+    "edit": "ask",
+    "npm": "always-allow",
+    "git": "ask"
+  },
+  "hooks": {
+    "pre-bash": null,
+    "post-bash": null,
+    "pre-write": "npm run lint",
+    "post-write": "npm test -- --changed",
+    "pre-commit": "npm run test:coverage"
+  },
+  "memory": [
+    "../.claude-config/memory/coding-standards/testing.md"
+  ],
+  "enabledSkills": [
+    "test-suite"
+  ],
+  "customSettings": {
+    "autoSave": true,
+    "gitAutoStage": false,
+    "verbose": true,
+    "runTestsOnSave": true,
+    "coverageThreshold": 80,
+    "watchMode": true
+  },
+  "tools": {
+    "testRunner": "jest",
+    "e2eFramework": "playwright",
+    "coverageTool": "istanbul",
+    "mockingLibrary": "jest"
+  },
+  "testConfig": {
+    "unit": {
+      "pattern": "**/*.test.ts",
+      "coverage": true,
+      "threshold": 80
+    },
+    "integration": {
+      "pattern": "**/*.integration.test.ts",
+      "coverage": true,
+      "threshold": 70
+    },
+    "e2e": {
+      "pattern": "**/*.e2e.test.ts",
+      "coverage": false,
+      "browsers": ["chromium", "firefox", "webkit"]
+    }
+  }
+}

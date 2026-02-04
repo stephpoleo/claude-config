@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "Configuration preset for DevOps and infrastructure projects",
+  "extends": "./base.json",
+  "model": "sonnet",
+  "permissions": {
+    "bash": "always-allow",
+    "read": "always-allow",
+    "write": "ask",
+    "edit": "ask",
+    "docker": "ask",
+    "git": "ask",
+    "kubectl": "ask"
+  },
+  "hooks": {
+    "pre-bash": null,
+    "post-bash": null,
+    "pre-write": "yamllint",
+    "post-write": null,
+    "pre-docker": "docker scan",
+    "post-docker": null
+  },
+  "memory": [
+    "../.claude-config/memory/coding-standards/docker.md",
+    "../.claude-config/memory/architecture-patterns/microservices.md"
+  ],
+  "enabledSkills": [
+    "docker-setup"
+  ],
+  "customSettings": {
+    "autoSave": true,
+    "gitAutoStage": false,
+    "verbose": true,
+    "validateYAML": true,
+    "securityScan": true
+  },
+  "tools": {
+    "containerRuntime": "docker",
+    "orchestrator": "docker-compose",
+    "cicd": "github-actions",
+    "monitoring": "prometheus"
+  }
+}

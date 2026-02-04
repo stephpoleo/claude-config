@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "Configuration preset for data science and ML projects",
+  "extends": "./base.json",
+  "model": "sonnet",
+  "permissions": {
+    "bash": "always-allow",
+    "read": "always-allow",
+    "write": "ask",
+    "edit": "ask",
+    "python": "always-allow"
+  },
+  "hooks": {
+    "pre-bash": null,
+    "post-bash": null,
+    "pre-write": "black --check",
+    "post-write": null
+  },
+  "memory": [
+    "../.claude-config/memory/coding-standards/python.md",
+    "../.claude-config/memory/coding-standards/clean-code.md"
+  ],
+  "enabledSkills": [
+    "data-pipeline",
+    "sql-optimization",
+    "model-design",
+    "clean-code-review"
+  ],
+  "customSettings": {
+    "autoSave": true,
+    "gitAutoStage": false,
+    "verbose": true,
+    "lintOnSave": true,
+    "formatOnSave": true,
+    "runNotebooks": true
+  },
+  "tools": {
+    "packageManager": "pip",
+    "notebook": "jupyter",
+    "linter": "pylint",
+    "formatter": "black",
+    "typeChecker": "mypy"
+  },
+  "jupyter": {
+    "autosave": true,
+    "kernel": "python3",
+    "extensions": ["matplotlib", "pandas", "sklearn"]
+  }
+}

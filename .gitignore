@@ -1,0 +1,26 @@
+# Local Claude Code directory (cada proyecto tiene el suyo)
+.claude/
+
+# Local settings (no compartir secrets)
+settings.local.json
+*.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+test-output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
