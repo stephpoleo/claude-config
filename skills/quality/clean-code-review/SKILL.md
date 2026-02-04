@@ -13,15 +13,294 @@ Review and improve code following Clean Code principles, SOLID design, and best 
 ## Usage
 
 ```
-/clean-code-review <code-description>
+/clean-code-review <file-path-or-description>
 ```
 
 ### Examples
 
 ```
-/clean-code-review "refactor this function to follow single responsibility"
-/clean-code-review "check this class for SOLID violations"
-/clean-code-review "improve naming and reduce complexity"
+/clean-code-review "backend/services/order_service.py"
+/clean-code-review "review UserManager class for SOLID violations"
+/clean-code-review "improve naming in data pipeline module"
+```
+
+## Reports System
+
+**IMPORTANTE**: Cada review debe generar un reporte markdown para llevar registro.
+
+### Ubicación de Reportes
+
+Guardar reportes en: `docs/code-reviews/` o `.code-reviews/` del proyecto
+
+```
+project/
+├── docs/
+│   └── code-reviews/
+│       ├── 2026-02-03-order-service-review.md
+│       ├── 2026-02-04-user-manager-refactor.md
+│       └── index.md  # Índice de todos los reviews
+```
+
+### Formato del Reporte
+
+```markdown
+# Code Review: [Descripción Corta]
+
+**Fecha**: 2026-02-03
+**Revisor**: Claude Opus 4.5
+**Archivos**: `backend/services/order_service.py`
+
+## Resumen Ejecutivo
+
+[1-2 párrafos describiendo principales hallazgos]
+
+## Issues Encontrados
+
+### 🔴 Críticos (3)
+
+#### 1. God Class - OrderService tiene demasiadas responsabilidades
+
+**Ubicación**: `order_service.py:45-200`
+**Principio violado**: Single Responsibility Principle (SRP)
+
+**Problema**:
+La clase `OrderService` maneja:
+- Validación de datos
+- Cálculo de precios
+- Procesamiento de pagos
+- Envío de emails
+- Logging
+
+**Impacto**: Alto - dificulta testing, mantenimiento y escalabilidad
+
+**Recomendación**:
+Separar en:
+- `OrderValidator` - validación
+- `PriceCalculator` - cálculos
+- `PaymentProcessor` - pagos
+- `OrderNotifier` - notificaciones
+
+**Status**: ⏳ Pendiente
+**Prioridad**: Alta
+**Estimación**: 4-6 horas
+
+---
+
+#### 2. Violación DIP - Dependencia directa de EmailService concreto
+
+**Ubicación**: `order_service.py:67`
+**Principio violado**: Dependency Inversion Principle (DIP)
+
+**Código actual**:
+\`\`\`python
+class OrderService:
+    def __init__(self):
+        self.email_service = EmailService()  # Dependencia concreta
+\`\`\`
+
+**Problema**: Acoplamiento fuerte, dificulta testing y cambios
+
+**Recomendación**:
+\`\`\`python
+class OrderService:
+    def __init__(self, notifier: NotificationInterface):
+        self.notifier = notifier
+\`\`\`
+
+**Status**: ⏳ Pendiente
+**Prioridad**: Media
+**Estimación**: 1-2 horas
+
+---
+
+### 🟡 Importantes (5)
+
+#### 3. Magic numbers en cálculo de impuestos
+
+**Ubicación**: `order_service.py:120`
+**Problema**: Uso de 0.21 directamente en código
+
+**Recomendación**:
+\`\`\`python
+TAX_RATE = 0.21  # Definir como constante
+\`\`\`
+
+**Status**: ⏳ Pendiente
+**Prioridad**: Baja
+
+---
+
+### 🟢 Menores (2)
+
+#### [Lista de issues menores]
+
+---
+
+## Code Smells Detectados
+
+- [ ] God Class (OrderService)
+- [ ] Magic Numbers (3 instancias)
+- [ ] Long Method (process_order: 85 líneas)
+- [ ] Feature Envy (OrderService accede demasiado a Order internals)
+- [ ] Duplicate Code (validación repetida en 3 lugares)
+
+## Métricas de Calidad
+
+| Métrica | Actual | Objetivo | Status |
+|---------|--------|----------|--------|
+| Complejidad Ciclomática | 15 | < 10 | ❌ |
+| Líneas por función | 45 | < 20 | ❌ |
+| Cobertura de tests | 45% | > 80% | ❌ |
+| Violaciones SOLID | 7 | 0 | ❌ |
+
+## Recomendaciones Prioritarias
+
+1. **Separar OrderService** (Crítico)
+   - Crear 4 clases especializadas
+   - Tiempo: 4-6 horas
+   - Beneficio: Mejora mantenibilidad y testing
+
+2. **Implementar inyección de dependencias** (Importante)
+   - Usar interfaces para servicios externos
+   - Tiempo: 2-3 horas
+   - Beneficio: Facilita testing y flexibilidad
+
+3. **Extraer constantes** (Menor)
+   - Definir TAX_RATE, SHIPPING_COST, etc.
+   - Tiempo: 30 minutos
+   - Beneficio: Mejora legibilidad
+
+## Plan de Acción
+
+- [ ] **Sprint 1**: Refactor OrderService (Issues #1, #2)
+- [ ] **Sprint 2**: Mejorar cobertura de tests
+- [ ] **Sprint 3**: Resolver code smells menores
+
+## Archivos a Crear/Modificar
+
+### Nuevos archivos
+- `backend/services/order_validator.py`
+- `backend/services/price_calculator.py`
+- `backend/interfaces/notification_interface.py`
+- `tests/services/test_order_validator.py`
+
+### Archivos a modificar
+- `backend/services/order_service.py` (refactor completo)
+- `backend/models/order.py` (posible simplificación)
+
+## Notas Adicionales
+
+- Considerar usar Clean Architecture pattern
+- Ver `memory/coding-standards/clean-code.md` para referencia
+- Consultar con el equipo antes de cambios mayores
+
+## Próxima Revisión
+
+**Fecha sugerida**: 2026-02-10 (después del refactor)
+**Enfoque**: Validar mejoras y revisar tests
+
+---
+
+**Generado por**: `/clean-code-review` skill
+**Versión**: 1.0.0
+```
+
+### Proceso de Generación de Reporte
+
+Cuando se invoca `/clean-code-review`:
+
+1. **Analizar el código** según principios Clean Code y SOLID
+
+2. **Categorizar issues** por severidad:
+   - 🔴 **Críticos**: Violaciones graves de principios, impacto alto
+   - 🟡 **Importantes**: Mejoras significativas necesarias
+   - 🟢 **Menores**: Mejoras de estilo, optimizaciones
+
+3. **Generar reporte** con formato arriba
+
+4. **Guardar reporte**:
+   ```bash
+   # Crear directorio si no existe
+   mkdir -p docs/code-reviews
+
+   # Guardar con timestamp
+   fecha=$(date +%Y-%m-%d)
+   archivo="docs/code-reviews/${fecha}-nombre-descriptivo.md"
+
+   # Escribir reporte
+   [generar contenido]
+   ```
+
+5. **Actualizar índice** (`docs/code-reviews/index.md`):
+   ```markdown
+   # Índice de Code Reviews
+
+   ## 2026
+
+   ### Febrero
+   - [2026-02-03 - Order Service Refactor](2026-02-03-order-service-review.md) - 🔴 7 críticos
+   - [2026-02-04 - User Manager SOLID](2026-02-04-user-manager-refactor.md) - 🟡 3 importantes
+
+   ## Estadísticas
+
+   - Total reviews: 2
+   - Issues críticos resueltos: 0/7
+   - Issues importantes resueltos: 1/3
+   ```
+
+6. **Confirmar con usuario**:
+   ```
+   ✅ Reporte guardado en: docs/code-reviews/2026-02-03-order-service-review.md
+
+   📊 Resumen:
+   - 🔴 Críticos: 3
+   - 🟡 Importantes: 5
+   - 🟢 Menores: 2
+
+   💡 Próximos pasos:
+   1. Revisar issues críticos
+   2. Crear tickets en backlog
+   3. Planificar refactoring
+   ```
+
+### Template Rápido
+
+Para copiar y usar:
+
+```markdown
+# Code Review: [Título]
+
+**Fecha**: [YYYY-MM-DD]
+**Revisor**: Claude Opus 4.5
+**Archivos**: `path/to/file.py`
+
+## Resumen Ejecutivo
+
+[Descripción]
+
+## Issues Encontrados
+
+### 🔴 Críticos (X)
+
+#### [Número]. [Título del Issue]
+
+**Ubicación**: `file.py:línea`
+**Principio violado**: [SRP/OCP/LSP/ISP/DIP]
+**Problema**: [Descripción]
+**Recomendación**: [Solución]
+**Status**: ⏳ Pendiente | ✅ Resuelto | 🔄 En progreso
+**Prioridad**: Alta | Media | Baja
+
+---
+
+## Plan de Acción
+
+- [ ] [Tarea 1]
+- [ ] [Tarea 2]
+
+## Próxima Revisión
+
+**Fecha**: [YYYY-MM-DD]
 ```
 
 ## Clean Code Principles

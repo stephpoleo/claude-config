@@ -252,6 +252,16 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 - Refactoring suggestions
 - Design patterns
 - Best practices del stack
+- **Genera reportes markdown** automáticos con issues categorizados
+- Sistema de tracking con status (pendiente, en progreso, resuelto)
+- Métricas de calidad y plan de acción
+
+**Reportes**:
+Genera reportes detallados en `docs/code-reviews/` con:
+- Issues categorizados por severidad (🔴 Críticos, 🟡 Importantes, 🟢 Menores)
+- Métricas de calidad (complejidad, cobertura, violaciones)
+- Plan de acción con estimaciones
+- Template incluido en `skills/quality/clean-code-review/report-template.md`
 
 ---
 

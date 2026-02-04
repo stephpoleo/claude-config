@@ -87,6 +87,13 @@ version: 1.0.0
 - `scripts/install.ps1` - Agregar a $PresetSkills si aplica
 - `scripts/install.sh` - Agregar a PRESET_SKILLS si aplica
 
+**Skills con reportes**:
+Algunos skills generan reportes markdown (ej: `clean-code-review`):
+- Reportes se guardan en `docs/code-reviews/` del proyecto
+- Formato estandarizado con template
+- Sistema de tracking (pendiente, en progreso, resuelto)
+- Ver `skills/quality/clean-code-review/report-template.md` para formato
+
 ### Agregar/Modificar Agent
 
 **Ubicación**: `agents/<categoría>/<agent-name>.md`
