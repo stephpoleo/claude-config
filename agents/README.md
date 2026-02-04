@@ -134,6 +134,35 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 
 ---
 
+### Design
+
+#### UX/UI Designer
+**Expertise**: UX Design, UI Design, Accessibility, Design Systems, Angular
+**Model**: Sonnet
+**File**: `agents/design/ux-ui-designer.md`
+
+**Capacidades**:
+- User Experience (UX) design
+- User Interface (UI) design
+- Accessibility (a11y) - WCAG 2.1 compliance
+- Responsive design (mobile-first)
+- Design systems y component libraries
+- Micro-interactions y animations
+- Angular Material, Tailwind CSS
+- Figma, prototyping
+- User research y testing
+
+**Cuándo usar**:
+- Diseñar nuevas features o componentes
+- Mejorar UX de funcionalidad existente
+- Implementar accessibility
+- Crear design system
+- Revisar diseños visuales
+- Optimizar responsive design
+- Definir interacciones y transitions
+
+---
+
 ### Documentation
 
 #### Documentation Writer (ES)

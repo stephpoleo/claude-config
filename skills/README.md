@@ -301,6 +301,37 @@ Genera reportes detallados en `docs/code-reviews/` con:
 
 ---
 
+#### frontend-supervisor
+**Categorías**: quality, frontend, ux, ui, accessibility
+**Archivo**: `skills/quality/frontend-supervisor/SKILL.md`
+
+```
+/frontend-supervisor "src/app/components/user-card"
+/frontend-supervisor "review header navigation for accessibility"
+```
+
+**Características**:
+- Review de código frontend (Angular, TypeScript, SCSS)
+- UX/UI design issues
+- Accessibility (a11y) - WCAG 2.1 compliance
+- Responsive design validation
+- Performance frontend
+- Design system consistency
+- **Genera reportes markdown** en `docs/frontend-reviews/`
+
+**Categorías de Review**:
+- 🔴 **Accesibilidad** (contraste, keyboard nav, ARIA, semantic HTML)
+- 🟡 **UX** (loading states, error handling, empty states, forms)
+- 🟢 **UI** (design consistency, spacing, typography, responsive)
+- ⚡ **Performance** (lazy loading, change detection, bundle size)
+
+**Integra con**:
+- UX/UI Designer agent para expertise continuo
+- Angular Specialist para código Angular
+- Herramientas: axe DevTools, Lighthouse, WAVE
+
+---
+
 ## Por Categoría
 
 ### Web Development (2)
@@ -324,14 +355,15 @@ Genera reportes detallados en `docs/code-reviews/` con:
 - `aws-setup` - Configuración de servicios AWS
 - `gcp-setup` - Configuración de servicios GCP
 
-### Quality & Testing (2)
+### Quality & Testing (3)
 - `test-suite` - Test suites completos
 - `clean-code-review` - Review con Clean Code y SOLID (con reportes markdown)
+- `frontend-supervisor` - Review frontend: UX/UI, a11y, responsive (con reportes markdown)
 
 ### Utilities (1)
 - `pr-helper` - Generador de commits y PRs desde cambios de código
 
-### Total: 14 skills
+### Total: 15 skills
 
 ## Stack Tecnológico
 

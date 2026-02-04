@@ -78,7 +78,7 @@ mi-proyecto/
 └── .claude-config/            # Submodule (compartido)
 ```
 
-## Skills Disponibles (14)
+## Skills Disponibles (15)
 
 ### Web Development
 - `angular-component` - Crear componentes Angular con TypeScript, Signals
@@ -100,13 +100,14 @@ mi-proyecto/
 ### Quality & Testing
 - `test-suite` - Crear test suites completos
 - `clean-code-review` - Review de código con SOLID y Clean Code (genera reportes .md)
+- `frontend-supervisor` - Review frontend: UX/UI, a11y, responsive (genera reportes .md)
 
 ### Utilities
 - `pr-helper` - Generador de commits y PRs desde cambios de código
 
 Ver catálogo completo en [skills/README.md](skills/README.md)
 
-## Agents Disponibles (6)
+## Agents Disponibles (7)
 
 ### Web & Backend
 - **Angular Specialist** - Experto en Angular 14+, TypeScript, RxJS, Signals
@@ -114,6 +115,9 @@ Ver catálogo completo en [skills/README.md](skills/README.md)
 
 ### Data Science
 - **Data Scientist Specialist** - ML (supervisado/no supervisado), análisis, feature engineering
+
+### Design
+- **UX/UI Designer** - Diseño UX/UI, accesibilidad (WCAG), design systems, responsive
 
 ### DevOps
 - **CI/CD Specialist** - GitHub Actions, pipelines, Docker, AWS, GCP deployment
