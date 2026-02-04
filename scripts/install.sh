@@ -88,10 +88,11 @@ echo ""
 log_info "Step 2: Select configuration preset..."
 
 declare -A PRESETS
-PRESETS[1]="minimal:Minimal setup (base configuration only)"
-PRESETS[2]="web-dev:Web development (React, API, TypeScript)"
-PRESETS[3]="devops:DevOps & Infrastructure (Docker, CI/CD)"
-PRESETS[4]="testing:Testing focused (Jest, Playwright)"
+PRESETS[1]="base:Base configuration (minimal setup)"
+PRESETS[2]="web-dev:Web development (Angular, Django, TypeScript)"
+PRESETS[3]="data-science:Data science (ML, pandas, scikit-learn, visualization)"
+PRESETS[4]="devops:DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
+PRESETS[5]="testing:Testing focused (pytest, unit/integration tests)"
 
 if [ "$INTERACTIVE" = true ] && [ -z "$PRESET" ]; then
     log_info "Available presets:"
@@ -111,7 +112,7 @@ if [ "$INTERACTIVE" = true ] && [ -z "$PRESET" ]; then
 fi
 
 if [ -z "$PRESET" ]; then
-    PRESET="minimal"
+    PRESET="base"
 fi
 
 log_success "✓ Selected preset: $PRESET"
@@ -121,10 +122,11 @@ echo ""
 log_info "Step 3: Selecting skills..."
 
 declare -A PRESET_SKILLS
-PRESET_SKILLS[minimal]=""
-PRESET_SKILLS[web-dev]="react-component,api-design"
-PRESET_SKILLS[devops]="docker-setup"
-PRESET_SKILLS[testing]="test-suite"
+PRESET_SKILLS[base]=""
+PRESET_SKILLS[web-dev]="angular-component,django-api,api-design"
+PRESET_SKILLS[data-science]="data-pipeline,sql-optimization,data-visualization,model-design"
+PRESET_SKILLS[devops]="docker-setup,github-actions,aws-setup,gcp-setup"
+PRESET_SKILLS[testing]="test-suite,clean-code-review"
 
 IFS=',' read -r -a SELECTED_SKILLS <<< "${PRESET_SKILLS[$PRESET]}"
 
@@ -222,9 +224,10 @@ echo ""
 log_info "Step 5: Selecting agents..."
 
 declare -A PRESET_AGENTS
-PRESET_AGENTS[minimal]=""
-PRESET_AGENTS[web-dev]="frontend-specialist"
-PRESET_AGENTS[devops]="docker-specialist"
+PRESET_AGENTS[base]=""
+PRESET_AGENTS[web-dev]="angular-specialist,python-django-specialist"
+PRESET_AGENTS[data-science]="data-scientist-specialist"
+PRESET_AGENTS[devops]="docker-specialist,cicd-specialist"
 PRESET_AGENTS[testing]=""
 
 IFS=',' read -r -a SELECTED_AGENTS <<< "${PRESET_AGENTS[$PRESET]}"

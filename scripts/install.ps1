@@ -75,10 +75,11 @@ Write-Info ""
 Write-Info "Step 2: Select configuration preset..."
 
 $AvailablePresets = @(
-    @{ Name = "minimal"; Description = "Minimal setup (base configuration only)" },
-    @{ Name = "web-dev"; Description = "Web development (React, API, TypeScript)" },
-    @{ Name = "devops"; Description = "DevOps & Infrastructure (Docker, CI/CD)" },
-    @{ Name = "testing"; Description = "Testing focused (Jest, Playwright)" }
+    @{ Name = "base"; Description = "Base configuration (minimal setup)" },
+    @{ Name = "web-dev"; Description = "Web development (Angular, Django, TypeScript)" },
+    @{ Name = "data-science"; Description = "Data science (ML, pandas, scikit-learn, visualization)" },
+    @{ Name = "devops"; Description = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)" },
+    @{ Name = "testing"; Description = "Testing focused (pytest, unit/integration tests)" }
 )
 
 if ($Interactive -and -not $Preset) {
@@ -98,7 +99,7 @@ if ($Interactive -and -not $Preset) {
 }
 
 if (-not $Preset) {
-    $Preset = "minimal"
+    $Preset = "base"
 }
 
 Write-Success "✓ Selected preset: $Preset"
@@ -108,10 +109,11 @@ Write-Info ""
 Write-Info "Step 3: Selecting skills..."
 
 $PresetSkills = @{
-    "minimal" = @()
-    "web-dev" = @("react-component", "api-design")
-    "devops" = @("docker-setup")
-    "testing" = @("test-suite")
+    "base" = @()
+    "web-dev" = @("angular-component", "django-api", "api-design")
+    "data-science" = @("data-pipeline", "sql-optimization", "data-visualization", "model-design")
+    "devops" = @("docker-setup", "github-actions", "aws-setup", "gcp-setup")
+    "testing" = @("test-suite", "clean-code-review")
 }
 
 $SelectedSkills = $PresetSkills[$Preset]
@@ -225,9 +227,10 @@ Write-Info ""
 Write-Info "Step 5: Selecting agents..."
 
 $PresetAgents = @{
-    "minimal" = @()
-    "web-dev" = @("frontend-specialist")
-    "devops" = @("docker-specialist")
+    "base" = @()
+    "web-dev" = @("angular-specialist", "python-django-specialist")
+    "data-science" = @("data-scientist-specialist")
+    "devops" = @("docker-specialist", "cicd-specialist")
     "testing" = @()
 }
 
