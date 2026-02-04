@@ -78,7 +78,7 @@ mi-proyecto/
 └── .claude-config/            # Submodule (compartido)
 ```
 
-## Skills Disponibles (15)
+## Skills Disponibles (16)
 
 ### Web Development
 - `angular-component` - Crear componentes Angular con TypeScript, Signals
@@ -90,6 +90,7 @@ mi-proyecto/
 - `sql-optimization` - Optimizar queries SQL para performance
 - `model-design` - Diseñar modelos ML (supervisados y no supervisados)
 - `data-visualization` - Crear visualizaciones con matplotlib, seaborn, plotly
+- `database-schema` - Diseñar schemas de BD relacionales con Supabase/PostgreSQL
 
 ### DevOps & Cloud
 - `docker-setup` - Configurar Docker y Docker Compose
@@ -107,7 +108,7 @@ mi-proyecto/
 
 Ver catálogo completo en [skills/README.md](skills/README.md)
 
-## Agents Disponibles (7)
+## Agents Disponibles (8)
 
 ### Web & Backend
 - **Angular Specialist** - Experto en Angular 14+, TypeScript, RxJS, Signals
@@ -115,6 +116,7 @@ Ver catálogo completo en [skills/README.md](skills/README.md)
 
 ### Data Science
 - **Data Scientist Specialist** - ML (supervisado/no supervisado), análisis, feature engineering
+- **Database Architect** - Diseño de BD relacionales, Supabase, PostgreSQL, RLS, schemas
 
 ### Design
 - **UX/UI Designer** - Diseño UX/UI, accesibilidad (WCAG), design systems, responsive

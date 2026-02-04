@@ -88,6 +88,30 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 - Optimizar queries SQL
 - Implementar data validation
 
+#### Database Architect
+**Expertise**: PostgreSQL, Supabase, Database Design, SQL, Relational Databases
+**Model**: Sonnet
+**File**: `agents/data/database-architect.md`
+
+**Capacidades**:
+- Diseño de bases de datos relacionales (ER modeling)
+- Supabase: RLS, Policies, Triggers, Functions, Realtime
+- PostgreSQL: Extensions, Performance tuning, Advanced features
+- Normalización y optimización de schemas
+- Generación de schema.sql ejecutable
+- Migraciones seguras
+- Indexing strategies
+- Security (RLS policies, role-based access)
+
+**Cuándo usar**:
+- Diseñar schemas de base de datos desde cero
+- Reestructurar schemas existentes
+- Agregar nuevos modelos y definir relaciones
+- Optimizar performance de base de datos
+- Configurar Row Level Security (RLS)
+- Generar migraciones incrementales
+- Decisiones arquitectónicas de BD
+
 ---
 
 ### DevOps

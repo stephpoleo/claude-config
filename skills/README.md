@@ -8,7 +8,7 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 2. **Invocación**: Usa `/skill-name` en Claude Code para invocar un skill
 3. **Personalización**: Copia y modifica skills para necesidades específicas del proyecto
 
-## Skills Disponibles (13)
+## Skills Disponibles (16)
 
 ### Web Development
 
@@ -120,6 +120,39 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 - Professional styling
 - Interactive dashboards
 - Export para presentaciones
+
+---
+
+#### database-schema
+**Categorías**: data, database, sql, postgresql, supabase
+**Archivo**: `skills/data/database-schema/SKILL.md`
+
+```
+/database-schema design "blog system with users, posts, comments"
+/database-schema analyze "path/to/schema.sql"
+/database-schema migrate "add likes table to existing schema"
+```
+
+**Características**:
+- Diseño de schemas relacionales (ER modeling)
+- Genera schema.sql ejecutable en Supabase/PostgreSQL
+- Diagramas ER en texto y Mermaid
+- Migraciones incrementales seguras
+- RLS (Row Level Security) policies
+- Optimización de indexes
+- Análisis de schemas existentes
+- Documentación de decisiones de diseño
+- Testing scripts
+
+**Actions**:
+- `design` - Diseñar nuevo schema desde cero
+- `analyze` - Analizar schema existente y sugerir mejoras
+- `migrate` - Generar migración para agregar/modificar tablas
+- `optimize` - Optimizar performance del schema
+
+**Integra con**:
+- Database Architect agent para decisiones arquitectónicas
+- sql-optimization skill para queries específicos
 
 ---
 
@@ -341,15 +374,16 @@ Genera reportes detallados en `docs/code-reviews/` con:
 ### Backend (1)
 - `django-api` - APIs Django REST Framework con Clean Architecture
 
-### Data Engineering & Science (3)
+### Data Engineering & Science (4)
 - `data-pipeline` - Pipelines ETL/ELT para procesamiento de datos
 - `sql-optimization` - Optimización de queries SQL
 - `data-visualization` - Visualizaciones con matplotlib, seaborn, plotly
+- `database-schema` - Diseño de schemas relacionales con Supabase/PostgreSQL
 
 ### Machine Learning (1)
 - `model-design` - Modelos ML supervisados y no supervisados
 
-### DevOps & Cloud (3)
+### DevOps & Cloud (4)
 - `docker-setup` - Configuración Docker y Docker Compose
 - `github-actions` - Pipelines CI/CD completos
 - `aws-setup` - Configuración de servicios AWS
@@ -363,7 +397,7 @@ Genera reportes detallados en `docs/code-reviews/` con:
 ### Utilities (1)
 - `pr-helper` - Generador de commits y PRs desde cambios de código
 
-### Total: 15 skills
+### Total: 16 skills
 
 ## Stack Tecnológico
 
