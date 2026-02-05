@@ -8,7 +8,7 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 2. **Invocación**: Usa `/skill-name` en Claude Code para invocar un skill
 3. **Personalización**: Copia y modifica skills para necesidades específicas del proyecto
 
-## Skills Disponibles (16)
+## Skills Disponibles (17)
 
 ### Web Development
 
@@ -286,6 +286,53 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 
 ---
 
+#### docs-generator
+**Categorías**: utilities, documentation, productivity
+**Archivo**: `skills/utilities/docs-generator/SKILL.md`
+
+```
+/docs-generator generate es           # Toda la documentación en español
+/docs-generator generate en           # Toda la documentación en inglés
+/docs-generator update claude es      # Actualiza CLAUDE.md
+/docs-generator update readme en      # Actualiza README.md
+/docs-generator api es "backend/api"  # Documenta APIs
+/docs-generator components en "src/app/components"  # Documenta componentes
+/docs-generator schema es             # Documenta schema de BD
+```
+
+**Características**:
+- Generación automática de documentación completa del proyecto
+- Soporte para **español** e **inglés**
+- Análisis automático del stack tecnológico
+- Integración con **Documentation Writer** agent
+- Genera CLAUDE.md optimizado para Claude Code
+- Genera README.md para desarrolladores
+- Documenta APIs, componentes, schemas de BD
+- Detecta patrones arquitectónicos automáticamente
+- Actualización incremental (solo lo que cambió)
+- Templates por stack (Django+Angular, Data Science, DevOps)
+- Respeta contenido manual existente
+
+**Actions**:
+- `generate` - Genera toda la documentación desde cero
+- `update` - Actualiza documentación existente
+- `api` - Documenta APIs específicas
+- `components` - Documenta componentes frontend
+- `schema` - Documenta schema de base de datos
+
+**Detecta automáticamente**:
+- Stack: Django, Angular, pandas, Docker, etc.
+- Estructura: Backend/Frontend/Data/DevOps
+- Patrones: Clean Architecture, Service Layer, RLS, Signals
+
+**Integra con**:
+- Documentation Writer agent para calidad profesional
+- Context7 MCP para sintaxis oficial de frameworks
+- database-schema skill para schemas
+- pr-helper skill para commits con docs
+
+---
+
 ### Quality & Testing
 
 #### test-suite
@@ -394,10 +441,11 @@ Genera reportes detallados en `docs/code-reviews/` con:
 - `clean-code-review` - Review con Clean Code y SOLID (con reportes markdown)
 - `frontend-supervisor` - Review frontend: UX/UI, a11y, responsive (con reportes markdown)
 
-### Utilities (1)
+### Utilities (2)
 - `pr-helper` - Generador de commits y PRs desde cambios de código
+- `docs-generator` - Generador automático de documentación en ES/EN
 
-### Total: 16 skills
+### Total: 17 skills
 
 ## Stack Tecnológico
 

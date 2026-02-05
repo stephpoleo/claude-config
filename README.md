@@ -78,7 +78,7 @@ mi-proyecto/
 └── .claude-config/            # Submodule (compartido)
 ```
 
-## Skills Disponibles (16)
+## Skills Disponibles (17)
 
 ### Web Development
 - `angular-component` - Crear componentes Angular con TypeScript, Signals
@@ -105,6 +105,7 @@ mi-proyecto/
 
 ### Utilities
 - `pr-helper` - Generador de commits y PRs desde cambios de código
+- `docs-generator` - Generador automático de documentación en ES/EN
 
 Ver catálogo completo en [skills/README.md](skills/README.md)
 
