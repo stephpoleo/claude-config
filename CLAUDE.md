@@ -209,8 +209,15 @@ cd ..
 ```bash
 # En otro proyecto
 git submodule add https://github.com/stephpoleo/claude-config .claude-config
-cd .claude-config
-./scripts/install.ps1  # o install.sh
+git submodule update --init --recursive
+
+# Instalar (preguntará si agregar a .gitignore)
+./claude-config/scripts/install.ps1  # Windows
+# o
+./claude-config/scripts/install.sh   # Linux/Mac
+
+# Opción interactiva:
+# Add .claude-config/ to .gitignore? (y/n) [Recommended: y]: y
 ```
 
 ## Decisiones Arquitectónicas
@@ -239,6 +246,17 @@ cd .claude-config
 - PowerShell: Nativo en Windows
 - Bash: Nativo en Linux/Mac
 - Maximiza compatibilidad sin dependencias
+
+### Opción de .gitignore Interactiva
+
+**Decisión**: Preguntar si agregar `.claude-config/` a `.gitignore`
+**Razón**:
+- Flexibilidad: Configuración personal vs compartida por equipo
+- Default recomendado: No subir (cada dev configura independientemente)
+- Casos de uso válidos para ambas opciones:
+  - Personal: No compartir configuración (recomendado)
+  - Equipo: Estandarizar configuración del proyecto
+- Script valida si es repo git antes de preguntar
 
 ### Estructura de Skills
 

@@ -29,7 +29,30 @@ git submodule update --init --recursive
 ./.claude-config/scripts/install.sh
 ```
 
-### 2. Seleccionar Skills y Agents
+### 2. Configurar Git (Opcional)
+
+El script te preguntará si quieres agregar `.claude-config/` al `.gitignore`:
+
+**Opción 1: No subir al repositorio (Recomendado)**
+- Agrega `.claude-config/` al `.gitignore`
+- El submodule no se comparte con el equipo
+- Cada desarrollador configura claude-config independientemente
+- Ideal para configuraciones personales
+
+**Opción 2: Compartir con el equipo**
+- No agrega al `.gitignore`
+- El submodule se sube como parte del proyecto
+- Todo el equipo usa la misma configuración
+- Ideal para estándares de equipo
+
+**Ejemplo de instalación**:
+```
+Step 1.5: Git configuration...
+Add .claude-config/ to .gitignore? (y/n) [Recommended: y]: y
+✓ Added .claude-config/ to .gitignore
+```
+
+### 3. Seleccionar Skills y Agents
 
 El script de instalación te guiará interactivamente para:
 - Seleccionar skills necesarios para tu proyecto
@@ -37,7 +60,7 @@ El script de instalación te guiará interactivamente para:
 - Configurar settings base
 - Crear symlinks automáticamente
 
-### 3. Personalizar Configuración
+### 4. Personalizar Configuración
 
 Edita `.claude/settings.local.json` para ajustar la configuración específica de tu proyecto:
 
@@ -151,6 +174,7 @@ cd ..
 4. **Flexibilidad**: Configuración local independiente
 5. **Reutilización**: Skills y agents disponibles inmediatamente
 6. **Colaboración**: Equipos comparten conocimiento y configuraciones
+7. **Privacidad**: Opción de no subir configuración al repositorio (.gitignore)
 
 ## Documentación
 

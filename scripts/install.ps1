@@ -71,6 +71,38 @@ if (-not (Test-Path "$ProjectRoot\.claude\agents")) {
 Write-Success "✓ Environment validated"
 Write-Info ""
 
+# Step 1.5: Configure .gitignore (optional)
+if ($Interactive -and (Test-Path "$ProjectRoot\.git")) {
+    Write-Info "Step 1.5: Git configuration..."
+    $addToGitignore = Read-Host "Add .claude-config/ to .gitignore? (y/n) [Recommended: y]"
+
+    if ($addToGitignore -eq "y" -or $addToGitignore -eq "Y" -or $addToGitignore -eq "") {
+        $gitignorePath = "$ProjectRoot\.gitignore"
+        $ignoreEntry = ".claude-config/"
+
+        # Check if .gitignore exists
+        if (-not (Test-Path $gitignorePath)) {
+            Write-Info "Creating .gitignore..."
+            New-Item -ItemType File -Path $gitignorePath | Out-Null
+        }
+
+        # Check if entry already exists
+        $gitignoreContent = Get-Content $gitignorePath -ErrorAction SilentlyContinue
+        if ($gitignoreContent -notcontains $ignoreEntry) {
+            # Add entry to .gitignore
+            Add-Content -Path $gitignorePath -Value "`n# Claude Config (submodule - opcional)"
+            Add-Content -Path $gitignorePath -Value $ignoreEntry
+            Write-Success "✓ Added .claude-config/ to .gitignore"
+        } else {
+            Write-Success "✓ .claude-config/ already in .gitignore"
+        }
+    } else {
+        Write-Info "Skipped .gitignore configuration"
+        Write-Warning "Note: .claude-config/ will be tracked by git (submodule)"
+    }
+    Write-Info ""
+}
+
 # Step 2: Select preset
 Write-Info "Step 2: Select configuration preset..."
 

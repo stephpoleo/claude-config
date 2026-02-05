@@ -84,6 +84,38 @@ mkdir -p "$PROJECT_ROOT/.claude/agents"
 log_success "✓ Environment validated"
 echo ""
 
+# Step 1.5: Configure .gitignore (optional)
+if [ "$INTERACTIVE" = true ] && [ -d "$PROJECT_ROOT/.git" ]; then
+    log_info "Step 1.5: Git configuration..."
+    read -p "Add .claude-config/ to .gitignore? (y/n) [Recommended: y]: " add_to_gitignore
+
+    if [ "$add_to_gitignore" = "y" ] || [ "$add_to_gitignore" = "Y" ] || [ -z "$add_to_gitignore" ]; then
+        gitignore_path="$PROJECT_ROOT/.gitignore"
+        ignore_entry=".claude-config/"
+
+        # Check if .gitignore exists
+        if [ ! -f "$gitignore_path" ]; then
+            log_info "Creating .gitignore..."
+            touch "$gitignore_path"
+        fi
+
+        # Check if entry already exists
+        if ! grep -qxF "$ignore_entry" "$gitignore_path"; then
+            # Add entry to .gitignore
+            echo "" >> "$gitignore_path"
+            echo "# Claude Config (submodule - opcional)" >> "$gitignore_path"
+            echo "$ignore_entry" >> "$gitignore_path"
+            log_success "✓ Added .claude-config/ to .gitignore"
+        else
+            log_success "✓ .claude-config/ already in .gitignore"
+        fi
+    else
+        log_info "Skipped .gitignore configuration"
+        log_warning "Note: .claude-config/ will be tracked by git (submodule)"
+    fi
+    echo ""
+fi
+
 # Step 2: Select preset
 log_info "Step 2: Select configuration preset..."
 
