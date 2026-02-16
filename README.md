@@ -157,16 +157,79 @@ Ver catálogo completo en [skills/README.md](skills/README.md)
 
 Ver catálogo completo en [agents/README.md](agents/README.md)
 
-## Actualización
+## Actualización en Proyectos Existentes
+
+Si ya tienes claude-config instalado en un proyecto y quieres obtener los últimos cambios:
+
+### Paso 1: Actualizar el Submodule
 
 ```bash
-# Actualizar configuraciones compartidas
+# Entrar al submodule y traer cambios
 cd .claude-config
 git pull origin main
 cd ..
 
-# O usar el script
+# Alternativa: desde la raíz del proyecto
+git submodule update --remote .claude-config
+```
+
+### Paso 2: Re-ejecutar Instalación (si hay nuevos skills/agents)
+
+Si se agregaron nuevos skills o agents que quieres usar:
+
+```bash
+# Windows
+.\.claude-config\scripts\install.ps1
+
+# Linux/Mac
+./.claude-config/scripts/install.sh
+```
+
+El script detectará la instalación existente y te permitirá agregar los nuevos componentes.
+
+### Paso 3: Confirmar Cambios en tu Proyecto
+
+```bash
+# Ver el estado (el submodule aparecerá como modificado)
+git status
+
+# Commit del cambio de versión del submodule
+git add .claude-config
+git commit -m "Update: claude-config to latest version"
+```
+
+### Actualización Rápida (Script)
+
+Para actualizaciones frecuentes, usa el script de actualización:
+
+```bash
+# Windows
 .\.claude-config\scripts\update.ps1
+
+# Linux/Mac
+./.claude-config/scripts/update.sh
+```
+
+### Resolución de Conflictos
+
+Si tienes cambios locales en el submodule (no recomendado):
+
+```bash
+cd .claude-config
+git stash              # Guardar cambios locales
+git pull origin main   # Traer cambios remotos
+git stash pop          # Restaurar cambios locales (puede haber conflictos)
+cd ..
+```
+
+### Verificar Versión Actual
+
+```bash
+cd .claude-config
+git log -1 --oneline   # Ver último commit instalado
+git fetch origin main
+git log HEAD..origin/main --oneline  # Ver commits pendientes de actualizar
+cd ..
 ```
 
 ## Ventajas
