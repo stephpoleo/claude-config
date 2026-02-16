@@ -118,7 +118,7 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 
 #### CI/CD Specialist
 **Expertise**: GitHub Actions, Docker, AWS, GCP, CI/CD Pipelines
-**Model**: Sonnet
+**Model**: Haiku (optimizado para velocidad y costo)
 **File**: `agents/devops/cicd-specialist.md`
 
 **Capacidades**:
@@ -139,7 +139,7 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 
 #### Docker Specialist
 **Expertise**: Docker, Docker Compose, Containerization
-**Model**: Sonnet
+**Model**: Haiku (optimizado para velocidad y costo)
 **File**: `agents/devops/docker-specialist.md`
 
 **Capacidades**:
@@ -208,6 +208,45 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 - Documentar APIs
 - Crear guías técnicas
 - Balancear documentación LLM vs humana
+
+---
+
+### Security
+
+#### Security Auditor
+**Expertise**: OWASP Top 10, Penetration Testing, Web Security, Mobile Security
+**Model**: Opus
+**File**: `agents/security/security-auditor.md`
+
+**Capacidades**:
+- Auditoría de seguridad OWASP Top 10
+- Análisis de vulnerabilidades (XSS, SQLi, CSRF, IDOR, etc.)
+- Penetration testing web y móvil
+- Especialización en Angular + Django + Supabase
+- Soporte para múltiples stacks (React, Node.js, MongoDB, etc.)
+- Security testing (SAST, DAST, dependency scanning)
+- Generación de reportes de auditoría
+- Recomendaciones de remediación con código
+- Rate limiting, authentication, authorization
+- Mobile security (Ionic, React Native, Flutter)
+- CI/CD security integration
+
+**Cuándo usar**:
+- Auditar aplicación antes de producción
+- Identificar vulnerabilidades de seguridad
+- Revisar código con foco en seguridad
+- Implementar OWASP best practices
+- Compliance con GDPR, PCI DSS
+- Penetration testing interno
+- Security code review
+- Configurar security scanning en CI/CD
+
+**Por qué usa Opus**:
+- Razonamiento profundo para identificar cadenas de ataque complejas
+- Minimizar falsos positivos (costosos para el equipo)
+- Detectar vulnerabilidades sutiles que otros modelos pueden omitir
+- Análisis de contexto completo de la aplicación
+- Seguridad es crítica - vale la pena el costo adicional
 
 ---
 

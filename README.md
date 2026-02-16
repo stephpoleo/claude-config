@@ -132,25 +132,28 @@ mi-proyecto/
 
 Ver catálogo completo en [skills/README.md](skills/README.md)
 
-## Agents Disponibles (8)
+## Agents Disponibles (9)
 
 ### Web & Backend
-- **Angular Specialist** - Experto en Angular 14+, TypeScript, RxJS, Signals
-- **Python Django Specialist** - Backend con Django, DRF, Clean Architecture, SOLID
+- **Angular Specialist** (Sonnet) - Experto en Angular 14+, TypeScript, RxJS, Signals
+- **Python Django Specialist** (Sonnet) - Backend con Django, DRF, Clean Architecture, SOLID
 
 ### Data Science
-- **Data Scientist Specialist** - ML (supervisado/no supervisado), análisis, feature engineering
-- **Database Architect** - Diseño de BD relacionales, Supabase, PostgreSQL, RLS, schemas
+- **Data Scientist Specialist** (Sonnet) - ML (supervisado/no supervisado), análisis, feature engineering
+- **Database Architect** (Sonnet) - Diseño de BD relacionales, Supabase, PostgreSQL, RLS, schemas
 
 ### Design
-- **UX/UI Designer** - Diseño UX/UI, accesibilidad (WCAG), design systems, responsive
+- **UX/UI Designer** (Sonnet) - Diseño UX/UI, accesibilidad (WCAG), design systems, responsive
+
+### Security
+- **Security Auditor** (Opus) - Auditoría de seguridad, OWASP Top 10, pentesting, Angular/Django
 
 ### DevOps
-- **CI/CD Specialist** - GitHub Actions, pipelines, Docker, AWS, GCP deployment
-- **Docker Specialist** - Containerización, Docker Compose, optimización
+- **CI/CD Specialist** (Haiku) - GitHub Actions, pipelines, Docker, AWS, GCP deployment
+- **Docker Specialist** (Haiku) - Containerización, Docker Compose, optimización
 
 ### Documentation
-- **Documentation Writer (ES)** - Documentación técnica, CLAUDE.md, README.md, Context7
+- **Documentation Writer (ES)** (Sonnet) - Documentación técnica, CLAUDE.md, README.md, Context7
 
 Ver catálogo completo en [agents/README.md](agents/README.md)
 

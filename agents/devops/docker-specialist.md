@@ -1,8 +1,8 @@
 ---
 name: Docker Specialist
 expertise: [Docker, Docker Compose, Containerization, DevOps]
-model: sonnet
-version: 1.0.0
+model: haiku
+version: 1.1.0
 ---
 
 # Docker Specialist Agent

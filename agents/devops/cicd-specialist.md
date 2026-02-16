@@ -1,8 +1,8 @@
 ---
 name: CI/CD Specialist
 expertise: [GitHub Actions, CI/CD, DevOps, Docker, AWS, GCP]
-model: sonnet
-version: 1.0.0
+model: haiku
+version: 1.1.0
 ---
 
 # CI/CD Specialist Agent

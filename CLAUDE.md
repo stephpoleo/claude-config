@@ -30,11 +30,12 @@ claude-config/
 │   ├── quality/        # clean-code-review, frontend-supervisor
 │   ├── testing/        # test-suite
 │   └── utilities/      # pr-helper, docs-generator
-├── agents/              # 8 agents expertos
+├── agents/              # 9 agents expertos
 │   ├── web-dev/        # angular-specialist.md
 │   ├── backend/        # python-django-specialist.md
 │   ├── data/           # data-scientist-specialist.md, database-architect.md
 │   ├── design/         # ux-ui-designer.md
+│   ├── security/       # security-auditor.md
 │   ├── devops/         # cicd-specialist.md, docker-specialist.md
 │   └── documentation/  # docs-writer-es.md
 ├── settings/            # 5 presets de configuración
@@ -284,6 +285,31 @@ git submodule update --init --recursive
 - Skills deben funcionar sin Context7
 - Documentación en `docs/using-context7.md`
 - Agent docs-writer-es usa Context7 cuando disponible
+
+### Asignación de Modelos a Agents
+
+**Decisión**: Modelo específico por agent según complejidad de tareas
+**Distribución**:
+- **Opus (1 agent)**: Security Auditor
+  - Razón: Análisis de seguridad crítico, requiere razonamiento profundo
+  - Minimizar falsos positivos/negativos es crucial
+  - Cadenas de ataque complejas requieren pensamiento multi-step
+  - Costo justificado por criticidad de seguridad
+
+- **Sonnet (6 agents)**: Angular, Django, Data Science, Database, UX/UI, Documentation
+  - Razón: Balance perfecto velocidad/capacidad
+  - Decisiones arquitectónicas pero patrones conocidos
+  - Razonamiento necesario pero no extremo
+  - Uso más frecuente - costo moderado
+
+- **Haiku (2 agents)**: CI/CD, Docker
+  - Razón: Tareas mecánicas, patrones establecidos
+  - Configuración más que diseño
+  - 80% más económico, 3x más rápido
+  - Suficiente para YAML/Dockerfiles
+
+**Impacto en costos**: ~6-10% ahorro con mejor velocidad en DevOps
+**Filosofía**: Right model for the right task
 
 ## Fixes Aplicados
 
