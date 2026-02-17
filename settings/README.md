@@ -241,7 +241,7 @@ touch settings/my-preset.json
 
 ```json
 {
-  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "description": "Custom preset for my specific needs",
   "extends": "./base.json",
   "model": "sonnet",

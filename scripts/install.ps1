@@ -371,7 +371,7 @@ if (Test-Path $settingsFile) {
 if ($settingsFile) {
     $settingsTemplate = @"
 {
-  "`$schema": "https://json-schema.org/draft-07/schema#",
+  "`$schema": "https://json.schemastore.org/claude-code-settings.json",
   "extends": "../.claude-config/settings/$Preset.json",
   "model": "sonnet",
   "customSettings": {

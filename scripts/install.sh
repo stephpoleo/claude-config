@@ -372,7 +372,7 @@ if [ -n "$settings_file" ]; then
 
     cat > "$settings_file" << EOF
 {
-  "\$schema": "https://json-schema.org/draft-07/schema#",
+  "\$schema": "https://json.schemastore.org/claude-code-settings.json",
   "extends": "../.claude-config/settings/$PRESET.json",
   "model": "sonnet",
   "customSettings": {

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "description": "Configuration preset for data science and ML projects",
   "extends": "./base.json",
   "model": "sonnet",
