@@ -11,6 +11,7 @@ Soluciones a problemas comunes con claude-config.
 - [Skills y Agents](#skills-y-agents)
 - [Scripts](#scripts)
 - [Windows Específico](#windows-específico)
+- [Graphify Skill](#graphify-skill)
 
 ## Instalación
 
@@ -571,6 +572,80 @@ O usar `.gitattributes`:
 - Usa PowerShell scripts (`.ps1`) en Windows
 - Usa Bash scripts (`.sh`) en WSL/Linux
 - No mezcles
+
+---
+
+## Graphify Skill
+
+### Detección de Python Lenta o Fallida
+
+**Síntoma**: `/graphify .` tarda varios minutos buscando el intérprete Python.
+
+**Causa**: El skill busca en uv → pipx → python en orden, y en Windows con Git Bash las rutas pueden no resolverse correctamente.
+
+**Solución** (ejecutar una vez):
+```bash
+# Pre-guardar el intérprete correcto
+mkdir -p graphify-out
+python -c "import sys; print(sys.executable)" > graphify-out/.graphify_python
+```
+
+Esto salta toda la detección automática en futuras ejecuciones.
+
+---
+
+### PowerShell vs Git Bash en Windows
+
+**Síntoma**: El skill falla con errores como `New-Item: command not found`.
+
+**Causa**: El skill de graphify tiene scripts para PowerShell, pero Claude Code usa Git Bash en Windows por defecto.
+
+**Solución**: El skill debería detectar el shell automáticamente. Si falla:
+```bash
+# Verificar qué shell usa tu sistema
+echo $SHELL
+
+# Si es bash, usar rutas Unix-style para Python
+"/c/Users/tu-usuario/AppData/Local/Programs/Python/Python312/python.exe" -c "import graphify"
+```
+
+---
+
+### Corpus Pequeño - ¿Vale la pena?
+
+**Síntoma**: El reporte dice "Corpus fits in a single context window. You may not need a graph."
+
+**Causa**: El proyecto tiene < 50 archivos o < 10,000 palabras.
+
+**Recomendación**:
+- **< 20 archivos**: Probablemente no necesitas graphify
+- **20-50 archivos**: Útil para visualización y descubrir conexiones
+- **> 50 archivos o multi-repo**: Graphify brilla aquí
+
+Para proyectos pequeños, considera usar graphify solo para visualización HTML:
+```bash
+/graphify . --no-cluster  # Más rápido, sin clustering costoso
+```
+
+---
+
+### Graph Vacío o Sin Nodos
+
+**Síntoma**: `ERROR: Graph is empty - extraction produced no nodes.`
+
+**Causas comunes**:
+1. Solo archivos binarios (imágenes sin texto, PDFs escaneados)
+2. Archivos en formatos no soportados
+3. Todo el contenido en `.gitignore` o patrones de exclusión
+
+**Solución**:
+```bash
+# Ver qué detectó graphify
+cat graphify-out/.graphify_detect.json | python -m json.tool
+
+# Verificar que hay archivos de código/docs
+ls **/*.py **/*.md **/*.ts 2>/dev/null | head -20
+```
 
 ---
 
