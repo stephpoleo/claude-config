@@ -412,6 +412,43 @@ Genera reportes detallados en `docs/code-reviews/` con:
 
 ---
 
+### External / Third-Party
+
+#### graphify
+**Categorías**: external, knowledge-graph, code-analysis
+**Paquete**: `graphifyy` (PyPI) — NO vendido en este repo
+
+```
+/graphify .                                # grafo de conocimiento de la carpeta actual
+/graphify ./src                            # analizar una subcarpeta
+/graphify https://github.com/owner/repo    # clonar y analizar un repo
+/graphify query "¿cómo funciona la autenticación?"   # preguntar sobre el código
+/graphify explain "NombreDeClase"          # explicación en lenguaje simple
+```
+
+**Características**:
+- Convierte cualquier carpeta (código, docs, PDFs, imágenes, video) en un grafo de conocimiento navegable
+- Detección de comunidades y "god nodes" (nodos más conectados)
+- Salidas: `graph.html` interactivo, `GRAPH_REPORT.md`, `graph.json`
+- Extracción de código 100% local (AST) — **no requiere API key**
+- Grafo persistente: se consulta con `query`/`path`/`explain` sin reconstruir
+
+**⚠️ No es un skill como los demás**:
+- Es un **paquete de Python** (`graphifyy`), no un `SKILL.md` versionado en este repo.
+- Instala y **auto-actualiza su propio skill de forma global** en `~/.claude/skills/graphify/`, por lo que funciona en **todos** tus proyectos sin symlink.
+- **No copiar su `SKILL.md` a este repo**: se desincronizaría con el paquete y no funciona sin él.
+
+**Instalación** (opcional, la ofrece `install.ps1` / `install.sh` en el paso 8.5):
+```bash
+uv tool install graphifyy      # requiere uv (https://docs.astral.sh/uv/)
+graphify install               # registra el skill /graphify (global)
+# o por proyecto:  graphify install --project
+```
+
+**Requisitos**: Python 3.10+, uv (recomendado). Clave `GEMINI_API_KEY` opcional solo para extracción semántica de docs/PDFs/imágenes.
+
+---
+
 ## Por Categoría
 
 ### Web Development (2)

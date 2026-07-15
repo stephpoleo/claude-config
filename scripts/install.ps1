@@ -481,6 +481,49 @@ if (Test-Path $gitignoreFile) {
 
 Write-Info ""
 
+# Step 8.5: Optional external tools - graphify (knowledge-graph skill)
+# graphify is NOT a vended skill: it is a Python package (graphifyy) that installs
+# and self-updates its own skill globally (~/.claude/skills/graphify). We only offer
+# to install it here so teammates cloning this repo get it too. Never copy its
+# SKILL.md into this repo - it would drift and does nothing without the package.
+Write-Info "Step 8.5: Optional external tools (graphify)..."
+
+$installGraphify = "n"
+if ($Interactive) {
+    $installGraphify = Read-Host "Install graphify? (knowledge-graph skill '/graphify', requires uv) (y/n) [n]"
+}
+
+if ($installGraphify -eq "y" -or $installGraphify -eq "Y") {
+    if (Get-Command uv -ErrorAction SilentlyContinue) {
+        Write-Info "  Installing graphifyy via uv..."
+        uv tool install --upgrade graphifyy
+
+        # Resolve the graphify executable - it may not be on PATH in this session yet
+        $graphifyCmd = (Get-Command graphify -ErrorAction SilentlyContinue).Source
+        if (-not $graphifyCmd) {
+            $candidate = Join-Path $env:USERPROFILE ".local\bin\graphify.exe"
+            if (Test-Path $candidate) { $graphifyCmd = $candidate }
+        }
+
+        if ($graphifyCmd) {
+            & $graphifyCmd install
+            uv tool update-shell 2>$null | Out-Null
+            Write-Success "✓ graphify installed (global skill - use /graphify in any project)"
+            Write-Warning "  Restart your terminal so 'graphify' is on PATH."
+        } else {
+            Write-Warning "  ⚠ graphifyy installed but 'graphify' not found on PATH."
+            Write-Warning "    Run 'uv tool update-shell', reopen your terminal, then 'graphify install'."
+        }
+    } else {
+        Write-Warning "  ⚠ uv not found. Install uv first: https://docs.astral.sh/uv/"
+        Write-Warning "    Alternative: pip install graphifyy; graphify install"
+    }
+} else {
+    Write-Info "  Skipped graphify installation"
+}
+
+Write-Info ""
+
 # Summary
 Write-Success @"
 

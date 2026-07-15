@@ -468,6 +468,48 @@ fi
 
 echo ""
 
+# Step 8.5: Optional external tools - graphify (knowledge-graph skill)
+# graphify is NOT a vended skill: it is a Python package (graphifyy) that installs
+# and self-updates its own skill globally (~/.claude/skills/graphify). We only offer
+# to install it here so teammates cloning this repo get it too. Never copy its
+# SKILL.md into this repo - it would drift and does nothing without the package.
+log_info "Step 8.5: Optional external tools (graphify)..."
+
+install_graphify="n"
+if [ "$INTERACTIVE" = true ]; then
+    read -p "Install graphify? (knowledge-graph skill '/graphify', requires uv) (y/n) [n]: " install_graphify
+fi
+
+if [ "$install_graphify" = "y" ] || [ "$install_graphify" = "Y" ]; then
+    if command -v uv >/dev/null 2>&1; then
+        log_info "  Installing graphifyy via uv..."
+        uv tool install --upgrade graphifyy
+
+        # Resolve the graphify executable - it may not be on PATH in this session yet
+        graphify_cmd="$(command -v graphify 2>/dev/null || true)"
+        if [ -z "$graphify_cmd" ] && [ -x "$HOME/.local/bin/graphify" ]; then
+            graphify_cmd="$HOME/.local/bin/graphify"
+        fi
+
+        if [ -n "$graphify_cmd" ]; then
+            "$graphify_cmd" install
+            uv tool update-shell >/dev/null 2>&1 || true
+            log_success "✓ graphify installed (global skill - use /graphify in any project)"
+            log_warning "  Restart your terminal so 'graphify' is on PATH."
+        else
+            log_warning "  ⚠ graphifyy installed but 'graphify' not found on PATH."
+            log_warning "    Run 'uv tool update-shell', reopen your terminal, then 'graphify install'."
+        fi
+    else
+        log_warning "  ⚠ uv not found. Install uv first: https://docs.astral.sh/uv/"
+        log_warning "    Alternative: pip install graphifyy && graphify install"
+    fi
+else
+    log_info "  Skipped graphify installation"
+fi
+
+echo ""
+
 # Summary
 log_success "
 ╔═══════════════════════════════════════════════════════╗
