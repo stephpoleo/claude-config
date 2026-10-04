@@ -447,6 +447,61 @@ graphify install               # registra el skill /graphify (global)
 
 **Requisitos**: Python 3.10+, uv (recomendado). Clave `GEMINI_API_KEY` opcional solo para extracción semántica de docs/PDFs/imágenes.
 
+#### caveman
+**Categorías**: external, skill-pack
+**Fuente**: [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) — NO vendido en este repo
+
+```
+/caveman            # skill principal
+/caveman-help       # lista los skills del paquete
+/caveman-commit     # commits
+/caveman-review     # code review
+```
+
+Incluye además `caveman-compress`, `caveman-explore`, `megacave`, `ultracave`, `safe-refactor`, `surgical-patch`, `verify-and-stop`, entre otros.
+
+**⚠️ No es un skill como los demás**:
+- Lo instala el CLI `skills` (npx) **de forma global** en `~/.agents/skills/` con symlinks en `~/.claude/skills/`, por lo que funciona en **todos** tus proyectos.
+- **No copiar sus `SKILL.md` a este repo**: para actualizar, vuelve a ejecutar el comando de instalación.
+- Los skills corren con permisos completos del agente; revísalos antes de usarlos.
+
+**Instalación** (opcional, la ofrece `install.ps1` / `install.sh` en el paso 8.6):
+```bash
+npx skills add JuliusBrussee/caveman -g
+```
+
+**Requisitos**: Node.js (npx). Reiniciar Claude Code tras instalar.
+
+#### rtk
+**Categorías**: external, cli
+**Paquete**: `rtk` (Homebrew) — NO vendido en este repo
+
+**Instalación** (opcional, la ofrece `install.ps1` / `install.sh` en el paso 8.7):
+```bash
+brew install rtk
+```
+
+**Requisitos**: Homebrew.
+
+#### ponytail
+**Categorías**: external, plugin, code-minimalism
+**Fuente**: [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) — plugin de Claude Code, NO vendido en este repo
+
+Hace que el agente reutilice código existente, la librería estándar y funciones nativas de la plataforma antes de escribir código nuevo.
+
+**Instalación** (opcional, la ofrecen `install.ps1` / `install.sh` en el paso 8.8). Dentro de Claude Code:
+```
+/plugin marketplace add DietrichGebert/ponytail
+/plugin install ponytail@ponytail
+```
+Desde la terminal (lo que usan los scripts):
+```bash
+claude plugin marketplace add DietrichGebert/ponytail
+claude plugin install ponytail@ponytail
+```
+
+**Requisitos**: Claude Code. Node.js en el PATH para sus hooks (sin node los skills funcionan, pero no se activa automáticamente).
+
 ---
 
 ## Por Categoría

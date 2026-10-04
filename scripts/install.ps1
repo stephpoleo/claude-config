@@ -524,6 +524,101 @@ if ($installGraphify -eq "y" -or $installGraphify -eq "Y") {
 
 Write-Info ""
 
+# Step 8.6: Optional external tools - caveman (skill pack)
+# caveman is NOT vended: the 'skills' CLI installs it globally into ~/.agents/skills
+# and links each skill into ~/.claude/skills. Never copy its SKILL.md files into
+# this repo - re-running the install command is how it gets updated.
+Write-Info "Step 8.6: Optional external tools (caveman)..."
+
+$installCaveman = "n"
+if ($Interactive) {
+    $installCaveman = Read-Host "Install caveman? (skill pack '/caveman', requires npx) (y/n) [n]"
+}
+
+if ($installCaveman -eq "y" -or $installCaveman -eq "Y") {
+    if (Get-Command npx -ErrorAction SilentlyContinue) {
+        Write-Info "  Installing caveman via skills CLI..."
+        npx -y skills add JuliusBrussee/caveman -g -y
+        if ($LASTEXITCODE -eq 0) {
+            Write-Success "✓ caveman installed (global skills - use /caveman in any project)"
+            Write-Warning "  Restart Claude Code so the new skills are loaded."
+        } else {
+            Write-Warning "  ⚠ caveman installation failed."
+            Write-Warning "    Retry manually: npx skills add JuliusBrussee/caveman -g"
+        }
+    } else {
+        Write-Warning "  ⚠ npx not found. Install Node.js first: https://nodejs.org/"
+    }
+} else {
+    Write-Info "  Skipped caveman installation"
+}
+
+Write-Info ""
+
+# Step 8.7: Optional external tools - rtk (Homebrew CLI)
+Write-Info "Step 8.7: Optional external tools (rtk)..."
+
+$installRtk = "n"
+if ($Interactive) {
+    $installRtk = Read-Host "Install rtk? (requires Homebrew) (y/n) [n]"
+}
+
+if ($installRtk -eq "y" -or $installRtk -eq "Y") {
+    if (Get-Command brew -ErrorAction SilentlyContinue) {
+        Write-Info "  Installing rtk via Homebrew..."
+        brew install rtk
+        if ($LASTEXITCODE -eq 0) {
+            Write-Success "✓ rtk installed"
+        } else {
+            Write-Warning "  ⚠ rtk installation failed. Retry manually: brew install rtk"
+        }
+    } else {
+        Write-Warning "  ⚠ brew not found. rtk is installed via Homebrew: https://brew.sh/"
+    }
+} else {
+    Write-Info "  Skipped rtk installation"
+}
+
+Write-Info ""
+
+# Step 8.8: Optional external tools - ponytail (Claude Code plugin)
+# ponytail is a Claude Code plugin, not a vended skill. The '/plugin' commands only
+# exist inside Claude Code, so we use the equivalent 'claude plugin' CLI.
+# Its lifecycle hooks need node on PATH for always-on activation.
+Write-Info "Step 8.8: Optional external tools (ponytail)..."
+
+$installPonytail = "n"
+if ($Interactive) {
+    $installPonytail = Read-Host "Install ponytail? (Claude Code plugin, requires claude CLI) (y/n) [n]"
+}
+
+if ($installPonytail -eq "y" -or $installPonytail -eq "Y") {
+    $ponytailOk = $false
+    if (Get-Command claude -ErrorAction SilentlyContinue) {
+        Write-Info "  Installing ponytail plugin..."
+        claude plugin marketplace add DietrichGebert/ponytail
+        if ($LASTEXITCODE -eq 0) {
+            claude plugin install ponytail@ponytail
+            $ponytailOk = ($LASTEXITCODE -eq 0)
+        }
+    } else {
+        Write-Warning "  ⚠ claude CLI not found."
+    }
+
+    if ($ponytailOk) {
+        Write-Success "✓ ponytail installed (Claude Code plugin)"
+        Write-Warning "  Restart Claude Code so the plugin is loaded."
+    } else {
+        Write-Warning "  ⚠ ponytail not installed. Inside Claude Code run:"
+        Write-Warning "    /plugin marketplace add DietrichGebert/ponytail"
+        Write-Warning "    /plugin install ponytail@ponytail"
+    }
+} else {
+    Write-Info "  Skipped ponytail installation"
+}
+
+Write-Info ""
+
 # Summary
 Write-Success @"
 
