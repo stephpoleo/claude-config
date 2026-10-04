@@ -8,7 +8,7 @@ Catálogo completo de skills disponibles en claude-config. Los skills son comand
 2. **Invocación**: Usa `/skill-name` en Claude Code para invocar un skill
 3. **Personalización**: Copia y modifica skills para necesidades específicas del proyecto
 
-## Skills Disponibles (17)
+## Skills Disponibles (23)
 
 ### Web Development
 
@@ -412,6 +412,72 @@ Genera reportes detallados en `docs/code-reviews/` con:
 
 ---
 
+### Smart Print (negocio de impresión 3D)
+
+Preset `smart-print`. Skills para un estudio de impresión 3D que vende piezas útiles, personalizadas y objetos con NFC o ESP32 para negocios.
+
+#### print-quote
+**Categorías**: maker, 3d-printing, pricing, business
+**Archivo**: `skills/maker/print-quote/SKILL.md`
+
+```
+/print-quote figura restaurante 60g PLA 4h con NFC
+```
+
+Cotización en MXN con desglose (material, energía, máquina, fallas, componentes, mano de obra, margen, IVA). Lee `pricing/costos.md` del proyecto si existe.
+
+#### print-design-brief
+**Categorías**: maker, 3d-printing, design
+**Archivo**: `skills/maker/print-design-brief/SKILL.md`
+
+```
+/print-design-brief figura de la mascota de una taquería con NFC
+```
+
+Pedido → especificación de impresión: licencia del diseño, material, tolerancias, cavidad NFC con pausa en capa, OpenSCAD paramétrico.
+
+#### nfc-hub
+**Categorías**: maker, nfc, web, business
+**Archivo**: `skills/maker/nfc-hub/SKILL.md`
+
+```
+/nfc-hub "Café La Esquina" menú=https://... wifi=LaEsquina-Clientes
+```
+
+Página hub del negocio (menú, WiFi con QR, reseña Google, redes, WhatsApp) + instrucciones para programar y bloquear el tag. El WiFi va en la página porque iOS no lee WiFi por NFC.
+
+#### iot-firmware
+**Categorías**: maker, iot, esp32, firmware
+**Archivo**: `skills/maker/iot-firmware/SKILL.md`
+
+```
+/iot-firmware botón llamar mesero que avisa por Telegram
+```
+
+Proyecto PlatformIO para ESP32 con WiFiManager y OTA, más checklist de alimentación y carcasa.
+
+#### social-content
+**Categorías**: marketing, social-media, content
+**Archivo**: `skills/marketing/social-content/SKILL.md`
+
+```
+/social-content figura NFC de la taquería tap-test
+```
+
+Guion de Reel/TikTok toma a toma, caption, hashtags para México y texto alternativo.
+
+#### client-pitch
+**Categorías**: business, sales, b2b
+**Archivo**: `skills/business/client-pitch/SKILL.md`
+
+```
+/client-pitch "Café La Esquina" cafetería Guadalajara
+```
+
+Propuesta de venta para un negocio concreto: diagnóstico, paquetes, mensaje de WhatsApp, guion de visita con tap test y objeciones.
+
+---
+
 ### External / Third-Party
 
 #### graphify
@@ -537,7 +603,15 @@ claude plugin install ponytail@ponytail
 - `pr-helper` - Generador de commits y PRs desde cambios de código
 - `docs-generator` - Generador automático de documentación en ES/EN
 
-### Total: 17 skills
+### Smart Print (6)
+- `print-quote` - Cotización de piezas impresas en MXN
+- `print-design-brief` - Pedido → especificación de impresión (licencia, material, NFC)
+- `nfc-hub` - Página hub del negocio para el tag NFC
+- `iot-firmware` - Firmware ESP32 con WiFiManager y OTA
+- `social-content` - Guiones y captions para Reels/TikTok
+- `client-pitch` - Propuesta de venta B2B para negocios locales
+
+### Total: 23 skills
 
 ## Stack Tecnológico
 

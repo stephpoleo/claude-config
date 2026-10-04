@@ -120,10 +120,11 @@ $PresetDefinitions = @{
     "data-science" = "Data science (ML, pandas, scikit-learn, visualization)"
     "devops" = "DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
     "testing" = "Testing focused (pytest, unit/integration tests)"
+    "smart-print" = "3D printing business (NFC, ESP32, pricing, social media)"
 }
 
 # Create ordered list for display
-$PresetNames = @("base", "web-dev", "data-science", "devops", "testing")
+$PresetNames = @("base", "web-dev", "data-science", "devops", "testing", "smart-print")
 
 if ($Interactive -and -not $Preset) {
     Write-Info "Available presets:"
@@ -158,6 +159,7 @@ $PresetSkills = @{
     "data-science" = @("data-pipeline", "sql-optimization", "data-visualization", "model-design")
     "devops" = @("docker-setup", "github-actions", "aws-setup", "gcp-setup")
     "testing" = @("test-suite", "clean-code-review")
+    "smart-print" = @("print-quote", "print-design-brief", "nfc-hub", "iot-firmware", "social-content", "client-pitch")
 }
 
 $SelectedSkills = $PresetSkills[$Preset]
@@ -275,6 +277,7 @@ $PresetAgents = @{
     "data-science" = @("data-scientist-specialist")
     "devops" = @("docker-specialist", "cicd-specialist")
     "testing" = @()
+    "smart-print" = @("product-designer-3d", "iot-engineer", "business-strategist-mx", "social-media-manager")
 }
 
 $SelectedAgents = $PresetAgents[$Preset]

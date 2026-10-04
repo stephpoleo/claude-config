@@ -250,6 +250,42 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 
 ---
 
+### Smart Print (negocio de impresión 3D)
+
+Preset `smart-print`.
+
+#### product-designer-3d
+**Expertise**: DfAM, FDM, resina, OpenSCAD, embebido NFC
+**Model**: Sonnet
+**File**: `agents/maker/product-designer-3d.md`
+
+**Cuándo usar**: diseñar o revisar piezas funcionales y personalizadas, elegir material y tolerancias, embeber NFC o electrónica, validar licencias de diseños de terceros.
+
+#### iot-engineer
+**Expertise**: ESP32, Arduino, PlatformIO, sensores, alimentación
+**Model**: Sonnet
+**File**: `agents/maker/iot-engineer.md`
+
+**Cuándo usar**: productos con microcontrolador para negocios (botón de llamado, semáforo de ocupación, turnero), firmware y confiabilidad del dispositivo.
+
+#### business-strategist-mx
+**Expertise**: validación, pricing, suscripciones, canales de venta en México, SAT/RESICO
+**Model**: Opus
+**File**: `agents/business/business-strategist-mx.md`
+
+**Cuándo usar**: validar ideas, definir precios y paquetes del hub, elegir canales, priorizar qué hacer para la siguiente venta.
+
+**Por qué usa Opus**: decisiones de negocio con varias variables y supuestos que hay que cuestionar; el costo de un mal precio o una mala prioridad es mayor que el costo del modelo.
+
+#### social-media-manager
+**Expertise**: Instagram, TikTok, video corto, voz de marca, marketing local
+**Model**: Sonnet
+**File**: `agents/marketing/social-media-manager.md`
+
+**Cuándo usar**: calendario de contenido, ideas de videos, voz de marca y análisis de métricas que se le compartan. Modo asistido: no publica.
+
+---
+
 ## Estructura de un Agent
 
 ```markdown

@@ -95,6 +95,22 @@ Preset para proyectos enfocados en testing.
 
 ---
 
+### smart-print.json
+
+Preset para un negocio de impresión 3D: piezas con NFC, dispositivos ESP32, cotización y redes sociales.
+
+**Características**:
+- Permisos conservadores (pide confirmación para bash y escritura)
+- Idioma es-MX y moneda MXN en `customSettings`
+
+**Cuándo usar**: repositorio del negocio (diseños, hubs de clientes, firmware, contenido de redes)
+
+**Skills incluidos**: `print-quote`, `print-design-brief`, `nfc-hub`, `iot-firmware`, `social-content`, `client-pitch`
+
+**Agents incluidos**: `product-designer-3d`, `iot-engineer`, `business-strategist-mx`, `social-media-manager`
+
+---
+
 ## Uso
 
 ### 1. En Nuevo Proyecto

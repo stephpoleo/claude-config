@@ -132,6 +132,7 @@ PRESETS=(
     "data-science:Data science (ML, pandas, scikit-learn, visualization)"
     "devops:DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
     "testing:Testing focused (pytest, unit/integration tests)"
+    "smart-print:3D printing business (NFC, ESP32, pricing, social media)"
 )
 
 if [ "$INTERACTIVE" = true ] && [ -z "$PRESET" ]; then
@@ -167,6 +168,7 @@ preset_skills() {
         data-science) echo "data-pipeline,sql-optimization,data-visualization,model-design" ;;
         devops)       echo "docker-setup,github-actions,aws-setup,gcp-setup" ;;
         testing)      echo "test-suite,clean-code-review" ;;
+        smart-print)  echo "print-quote,print-design-brief,nfc-hub,iot-firmware,social-content,client-pitch" ;;
         *)            echo "" ;;
     esac
 }
@@ -271,6 +273,7 @@ preset_agents() {
         web-dev)      echo "angular-specialist,python-django-specialist" ;;
         data-science) echo "data-scientist-specialist" ;;
         devops)       echo "docker-specialist,cicd-specialist" ;;
+        smart-print)  echo "product-designer-3d,iot-engineer,business-strategist-mx,social-media-manager" ;;
         *)            echo "" ;;
     esac
 }

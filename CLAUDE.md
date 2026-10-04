@@ -20,7 +20,7 @@ Este sistema está diseñado para proyectos con:
 
 ```
 claude-config/
-├── skills/              # 17 skills especializados
+├── skills/              # 23 skills especializados
 │   ├── web-dev/        # angular-component, api-design
 │   ├── backend/        # django-api
 │   ├── data/           # data-pipeline, sql-optimization, data-visualization, database-schema
@@ -29,21 +29,28 @@ claude-config/
 │   ├── devops/         # docker-setup, github-actions
 │   ├── quality/        # clean-code-review, frontend-supervisor
 │   ├── testing/        # test-suite
-│   └── utilities/      # pr-helper, docs-generator
-├── agents/              # 9 agents expertos
+│   ├── utilities/      # pr-helper, docs-generator
+│   ├── maker/          # print-quote, print-design-brief, nfc-hub, iot-firmware
+│   ├── marketing/      # social-content
+│   └── business/       # client-pitch
+├── agents/              # 13 agents expertos
 │   ├── web-dev/        # angular-specialist.md
 │   ├── backend/        # python-django-specialist.md
 │   ├── data/           # data-scientist-specialist.md, database-architect.md
 │   ├── design/         # ux-ui-designer.md
 │   ├── security/       # security-auditor.md
 │   ├── devops/         # cicd-specialist.md, docker-specialist.md
-│   └── documentation/  # docs-writer-es.md
-├── settings/            # 5 presets de configuración
+│   ├── documentation/  # docs-writer-es.md
+│   ├── maker/          # product-designer-3d.md, iot-engineer.md
+│   ├── business/       # business-strategist-mx.md
+│   └── marketing/      # social-media-manager.md
+├── settings/            # 6 presets de configuración
 │   ├── base.json
 │   ├── web-dev.json
 │   ├── data-science.json
 │   ├── devops.json
-│   └── testing.json
+│   ├── testing.json
+│   └── smart-print.json  # negocio de impresión 3D (NFC, ESP32, redes)
 ├── docs/                # Guías de uso
 │   ├── getting-started.md
 │   ├── submodule-workflow.md
@@ -89,7 +96,7 @@ version: 1.0.0
 **Actualizar también**:
 - `skills/README.md` - Agregar a catálogo
 - `scripts/install.ps1` - Agregar a $PresetSkills si aplica
-- `scripts/install.sh` - Agregar a PRESET_SKILLS si aplica
+- `scripts/install.sh` - Agregar a `preset_skills()` si aplica
 
 **Skills con reportes**:
 Algunos skills generan reportes markdown (ej: `clean-code-review`):
@@ -119,7 +126,7 @@ version: 1.0.0
 **Actualizar también**:
 - `agents/README.md` - Agregar a catálogo
 - `scripts/install.ps1` - Agregar a $PresetAgents si aplica
-- `scripts/install.sh` - Agregar a PRESET_AGENTS si aplica
+- `scripts/install.sh` - Agregar a `preset_agents()` si aplica
 
 ### Agregar Preset de Configuración
 
@@ -139,8 +146,8 @@ version: 1.0.0
 
 **Actualizar también**:
 - `settings/README.md` - Documentar preset
-- `scripts/install.ps1` - Agregar a $AvailablePresets
-- `scripts/install.sh` - Agregar a PRESETS array
+- `scripts/install.ps1` - Agregar a $PresetNames y $PresetDefinitions
+- `scripts/install.sh` - Agregar a PRESETS array y a `preset_skills()`/`preset_agents()`
 
 ### Modificar Scripts de Instalación
 
@@ -148,9 +155,9 @@ version: 1.0.0
 **Bash**: `scripts/install.sh`
 
 **Áreas críticas**:
-- `$AvailablePresets` / `PRESETS` - Lista de presets
-- `$PresetSkills` / `PRESET_SKILLS` - Skills por preset
-- `$PresetAgents` / `PRESET_AGENTS` - Agents por preset
+- `$PresetNames` / `PRESETS` - Lista de presets
+- `$PresetSkills` / `preset_skills()` - Skills por preset
+- `$PresetAgents` / `preset_agents()` - Agents por preset
 
 **Importante**:
 - Usar `[PSCustomObject]@{}` en PowerShell (no `@{}`)

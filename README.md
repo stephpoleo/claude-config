@@ -101,7 +101,7 @@ mi-proyecto/
 └── .claude-config/            # Submodule (compartido)
 ```
 
-## Skills Disponibles (17)
+## Skills Disponibles (23)
 
 ### Web Development
 - `angular-component` - Crear componentes Angular con TypeScript, Signals
@@ -130,9 +130,17 @@ mi-proyecto/
 - `pr-helper` - Generador de commits y PRs desde cambios de código
 - `docs-generator` - Generador automático de documentación en ES/EN
 
+### Smart Print (negocio de impresión 3D)
+- `print-quote` - Cotización de piezas impresas en MXN
+- `print-design-brief` - Pedido → especificación de impresión (licencia, material, NFC)
+- `nfc-hub` - Página hub del negocio para el tag NFC (menú, WiFi, reseñas)
+- `iot-firmware` - Firmware ESP32 con WiFiManager y OTA
+- `social-content` - Guiones y captions para Reels/TikTok
+- `client-pitch` - Propuesta de venta B2B para negocios locales
+
 Ver catálogo completo en [skills/README.md](skills/README.md)
 
-## Agents Disponibles (9)
+## Agents Disponibles (13)
 
 ### Web & Backend
 - **Angular Specialist** (Sonnet) - Experto en Angular 14+, TypeScript, RxJS, Signals
@@ -154,6 +162,12 @@ Ver catálogo completo en [skills/README.md](skills/README.md)
 
 ### Documentation
 - **Documentation Writer (ES)** (Sonnet) - Documentación técnica, CLAUDE.md, README.md, Context7
+
+### Smart Print (negocio de impresión 3D)
+- **Product Designer 3D** (Sonnet) - Diseño para impresión FDM/resina, materiales, embebido NFC, licencias
+- **IoT Engineer** (Sonnet) - ESP32/Arduino, firmware PlatformIO, alimentación y confiabilidad
+- **Business Strategist MX** (Opus) - Validación, precios, suscripciones, canales de venta en México
+- **Social Media Manager** (Sonnet) - Calendario y guiones para Instagram/TikTok (modo asistido)
 
 Ver catálogo completo en [agents/README.md](agents/README.md)
 
