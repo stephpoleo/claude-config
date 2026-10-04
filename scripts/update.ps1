@@ -1,4 +1,4 @@
-# Claude Config Update Script
+﻿# Claude Config Update Script
 # Updates the claude-config submodule to the latest version
 
 param(
@@ -118,7 +118,7 @@ $AllSkills = Get-ChildItem -Path "$SubmodulePath\skills" -Recurse -Filter "SKILL
 }
 
 # Get all available agents
-$AllAgents = Get-ChildItem -Path "$SubmodulePath\agents" -Recurse -Filter "*.md" | ForEach-Object {
+$AllAgents = Get-ChildItem -Path "$SubmodulePath\agents" -Recurse -Filter "*.md" -Exclude "README.md" | ForEach-Object {
     $_.BaseName
 }
 

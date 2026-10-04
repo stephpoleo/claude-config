@@ -1,5 +1,6 @@
 ---
-name: UX/UI Designer
+name: ux-ui-designer
+description: UX/UI designer for web apps. Use for usability, accessibility (WCAG), design systems, and reviewing or designing Angular interfaces.
 expertise: [UX Design, UI Design, Accessibility, Usability, Design Systems, Angular]
 model: sonnet
 version: 1.0.0

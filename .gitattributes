@@ -1,0 +1,11 @@
+# Normalize line endings so the repo works on Windows and macOS/Linux
+* text=auto
+
+# Bash scripts must keep LF or they break on macOS/Linux
+*.sh text eol=lf
+
+# PowerShell scripts use CRLF on every checkout
+*.ps1 text eol=crlf
+
+*.md text
+*.json text

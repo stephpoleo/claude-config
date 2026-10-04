@@ -1,5 +1,6 @@
 ---
-name: Data Scientist Specialist
+name: data-scientist-specialist
+description: Data science specialist. Use for ML modeling, feature engineering, statistical analysis, and pandas/scikit-learn/SQL data work.
 expertise: [Python, ML, Data Analysis, Statistics, SQL, Feature Engineering]
 model: sonnet
 version: 1.0.0

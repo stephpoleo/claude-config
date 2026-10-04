@@ -254,7 +254,8 @@ Los agents son archivos markdown que definen un contexto especializado para Clau
 
 ```markdown
 ---
-name: Agent Name
+name: agent-name            # kebab-case, igual al nombre del archivo
+description: Qué hace y cuándo usarlo (Claude Code lo requiere para cargar el agente)
 expertise: [skill1, skill2, skill3]
 model: sonnet
 version: 1.0.0

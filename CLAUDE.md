@@ -53,7 +53,8 @@ claude-config/
 ├── scripts/             # Instalación automatizada
 │   ├── install.ps1     # Windows PowerShell
 │   ├── install.sh      # Linux/Mac Bash
-│   └── update.ps1      # Actualización
+│   ├── update.ps1      # Actualización (Windows)
+│   └── update.sh       # Actualización (macOS/Linux)
 ├── memory/              # Estándares de código
 │   └── coding-standards/
 │       ├── python.md
@@ -104,7 +105,8 @@ Algunos skills generan reportes markdown (ej: `clean-code-review`):
 **Estructura requerida**:
 ```markdown
 ---
-name: Agent Name
+name: agent-name            # kebab-case, igual al nombre del archivo
+description: Qué hace y cuándo usarlo (Claude Code lo requiere para cargar el agente)
 expertise: [skill1, skill2]
 model: sonnet
 version: 1.0.0
@@ -350,13 +352,15 @@ git submodule update --init --recursive
 
 ### Modificar Scripts - Checklist
 
-1. Modificar ambos (install.ps1 y install.sh)
+1. Modificar ambos (install.ps1 y install.sh; update.ps1 y update.sh)
 2. Mantener sincronizados
-3. Probar en Windows (PowerShell)
-4. Probar en Linux/Mac (Bash) si posible
+3. Probar en Windows (PowerShell 5.1)
+4. Probar en macOS con `/bin/bash` (bash 3.2)
 5. Usar `[PSCustomObject]@{}` en PowerShell
-6. Commit descriptivo
-7. Push a main
+6. Bash compatible con 3.2: sin `declare -A`, sin `mapfile`, sin `((x++))` con `set -e`; nada GNU-only (`realpath --relative-to`, `sed -i` sin sufijo)
+7. Guardar `.ps1` en UTF-8 **con BOM** (PowerShell 5.1 lee mal ✓/⚠ y acentos sin BOM); `.gitattributes` fija LF en `.sh` y CRLF en `.ps1`
+8. Commit descriptivo
+9. Push a main
 
 ## Testing
 

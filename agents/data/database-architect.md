@@ -1,5 +1,6 @@
 ---
-name: Database Architect
+name: database-architect
+description: Database architect for PostgreSQL and Supabase. Use for schema design, normalization, indexes, RLS policies, and migrations.
 expertise: [postgresql, supabase, database-design, sql, relational-databases]
 model: sonnet
 version: 1.0.0

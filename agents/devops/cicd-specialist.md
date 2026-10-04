@@ -1,5 +1,6 @@
 ---
-name: CI/CD Specialist
+name: cicd-specialist
+description: CI/CD specialist. Use for GitHub Actions workflows, automated testing pipelines, and deployments to AWS/GCP.
 expertise: [GitHub Actions, CI/CD, DevOps, Docker, AWS, GCP]
 model: haiku
 version: 1.1.0

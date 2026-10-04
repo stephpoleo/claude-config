@@ -1,5 +1,6 @@
 ---
-name: Angular Specialist
+name: angular-specialist
+description: Angular specialist. Use for building or reviewing Angular components, services, RxJS flows, and TypeScript frontend code.
 expertise: [Angular, TypeScript, RxJS, HTML, CSS, SCSS]
 model: sonnet
 version: 1.0.0

@@ -1,5 +1,6 @@
 ---
-name: Security Auditor
+name: security-auditor
+description: Security auditor for web and mobile apps. Use for vulnerability assessment, OWASP Top 10 reviews, and auth/data security audits.
 expertise: [Security, OWASP, Penetration Testing, Vulnerability Assessment, Web Security, Mobile Security]
 model: opus
 version: 1.0.0

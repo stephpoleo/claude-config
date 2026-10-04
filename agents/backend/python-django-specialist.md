@@ -1,5 +1,6 @@
 ---
-name: Python Django Specialist
+name: python-django-specialist
+description: Python/Django/DRF backend specialist. Use for designing or reviewing REST APIs, models, serializers, and PostgreSQL-backed services with clean architecture.
 expertise: [Python, Django, Django REST Framework, PostgreSQL, Clean Architecture]
 model: sonnet
 version: 1.0.0

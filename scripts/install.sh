@@ -18,6 +18,12 @@ log_success() { echo -e "${GREEN}$1${NC}"; }
 log_warning() { echo -e "${YELLOW}$1${NC}"; }
 log_error() { echo -e "${RED}$1${NC}"; }
 
+# Relative path from $2 (directory) to $1. Uses Perl (ships with macOS and Git Bash)
+# because 'realpath --relative-to' is GNU-only. Falls back to the absolute path.
+rel_path() {
+    perl -MFile::Spec -e 'print File::Spec->abs2rel($ARGV[0], $ARGV[1])' "$1" "$2" 2>/dev/null || echo "$1"
+}
+
 # Banner
 log_info "
 ╔═══════════════════════════════════════════════════════╗
@@ -119,25 +125,27 @@ fi
 # Step 2: Select preset
 log_info "Step 2: Select configuration preset..."
 
-declare -A PRESETS
-PRESETS[1]="base:Base configuration (minimal setup)"
-PRESETS[2]="web-dev:Web development (Angular, Django, TypeScript)"
-PRESETS[3]="data-science:Data science (ML, pandas, scikit-learn, visualization)"
-PRESETS[4]="devops:DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
-PRESETS[5]="testing:Testing focused (pytest, unit/integration tests)"
+# Indexed arrays and 'case' only: macOS ships bash 3.2 (no 'declare -A')
+PRESETS=(
+    "base:Base configuration (minimal setup)"
+    "web-dev:Web development (Angular, Django, TypeScript)"
+    "data-science:Data science (ML, pandas, scikit-learn, visualization)"
+    "devops:DevOps & Infrastructure (Docker, CI/CD, AWS, GCP)"
+    "testing:Testing focused (pytest, unit/integration tests)"
+)
 
 if [ "$INTERACTIVE" = true ] && [ -z "$PRESET" ]; then
     log_info "Available presets:"
-    for key in $(echo ${!PRESETS[@]} | tr ' ' '\n' | sort -n); do
-        IFS=':' read -r name desc <<< "${PRESETS[$key]}"
-        log_info "  [$key] $name - $desc"
+    for idx in "${!PRESETS[@]}"; do
+        IFS=':' read -r name desc <<< "${PRESETS[$idx]}"
+        log_info "  [$((idx + 1))] $name - $desc"
     done
     echo ""
 
     while true; do
         read -p "Select preset [1-${#PRESETS[@]}]: " selection
-        if [[ "$selection" =~ ^[1-4]$ ]]; then
-            IFS=':' read -r PRESET _ <<< "${PRESETS[$selection]}"
+        if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le ${#PRESETS[@]} ]; then
+            IFS=':' read -r PRESET _ <<< "${PRESETS[$((selection - 1))]}"
             break
         fi
     done
@@ -153,14 +161,17 @@ echo ""
 # Step 3: Get skills for selected preset
 log_info "Step 3: Selecting skills..."
 
-declare -A PRESET_SKILLS
-PRESET_SKILLS[base]=""
-PRESET_SKILLS[web-dev]="angular-component,django-api,api-design"
-PRESET_SKILLS[data-science]="data-pipeline,sql-optimization,data-visualization,model-design"
-PRESET_SKILLS[devops]="docker-setup,github-actions,aws-setup,gcp-setup"
-PRESET_SKILLS[testing]="test-suite,clean-code-review"
+preset_skills() {
+    case "$1" in
+        web-dev)      echo "angular-component,django-api,api-design" ;;
+        data-science) echo "data-pipeline,sql-optimization,data-visualization,model-design" ;;
+        devops)       echo "docker-setup,github-actions,aws-setup,gcp-setup" ;;
+        testing)      echo "test-suite,clean-code-review" ;;
+        *)            echo "" ;;
+    esac
+}
 
-IFS=',' read -r -a SELECTED_SKILLS <<< "${PRESET_SKILLS[$PRESET]}"
+IFS=',' read -r -a SELECTED_SKILLS <<< "$(preset_skills "$PRESET")"
 
 # Get all available skills
 ALL_SKILLS=()
@@ -187,7 +198,7 @@ if [ "$INTERACTIVE" = true ] && [ ${#ALL_SKILLS[@]} -gt 0 ]; then
             skill_name=$(basename "$(dirname "$(echo "$skill_path" | cut -d: -f2)")")
             if [[ ! " ${SELECTED_SKILLS[@]} " =~ " ${skill_name} " ]]; then
                 log_info "  [$i] $skill_path"
-                ((i++))
+                i=$((i + 1))
             fi
         done
         echo ""
@@ -241,11 +252,11 @@ for skill_name in "${SELECTED_SKILLS[@]}"; do
         [ -e "$target_path" ] && rm -rf "$target_path"
 
         # Create relative symlink
-        relative_path="$(realpath --relative-to="$(dirname "$target_path")" "$skill_dir")"
+        relative_path="$(rel_path "$skill_dir" "$(dirname "$target_path")")"
         ln -s "$relative_path" "$target_path"
 
         [ "$VERBOSE" = true ] && log_info "  → Linked $skill_name"
-        ((LINKED_SKILLS++))
+        LINKED_SKILLS=$((LINKED_SKILLS + 1))
     fi
 done
 
@@ -255,14 +266,16 @@ echo ""
 # Step 5: Link agents
 log_info "Step 5: Selecting agents..."
 
-declare -A PRESET_AGENTS
-PRESET_AGENTS[base]=""
-PRESET_AGENTS[web-dev]="angular-specialist,python-django-specialist"
-PRESET_AGENTS[data-science]="data-scientist-specialist"
-PRESET_AGENTS[devops]="docker-specialist,cicd-specialist"
-PRESET_AGENTS[testing]=""
+preset_agents() {
+    case "$1" in
+        web-dev)      echo "angular-specialist,python-django-specialist" ;;
+        data-science) echo "data-scientist-specialist" ;;
+        devops)       echo "docker-specialist,cicd-specialist" ;;
+        *)            echo "" ;;
+    esac
+}
 
-IFS=',' read -r -a SELECTED_AGENTS <<< "${PRESET_AGENTS[$PRESET]}"
+IFS=',' read -r -a SELECTED_AGENTS <<< "$(preset_agents "$PRESET")"
 
 # Get all available agents
 ALL_AGENTS=()
@@ -270,7 +283,7 @@ while IFS= read -r -d '' agent_file; do
     category=$(basename "$(dirname "$agent_file")")
     agent_name=$(basename "$agent_file" .md)
     ALL_AGENTS+=("$category/$agent_name:$agent_file")
-done < <(find "$SCRIPT_DIR/agents" -name "*.md" -print0)
+done < <(find "$SCRIPT_DIR/agents" -name "*.md" ! -name "README.md" -print0)
 
 if [ "$INTERACTIVE" = true ] && [ ${#ALL_AGENTS[@]} -gt 0 ]; then
     log_info "Agents included in preset:"
@@ -288,7 +301,7 @@ if [ "$INTERACTIVE" = true ] && [ ${#ALL_AGENTS[@]} -gt 0 ]; then
             agent_name=$(basename "$(echo "$agent_path" | cut -d: -f2)" .md)
             if [[ ! " ${SELECTED_AGENTS[@]} " =~ " ${agent_name} " ]]; then
                 log_info "  [$i] $agent_path"
-                ((i++))
+                i=$((i + 1))
             fi
         done
         echo ""
@@ -337,11 +350,11 @@ for agent_name in "${SELECTED_AGENTS[@]}"; do
         [ -e "$target_path" ] && rm -f "$target_path"
 
         # Create relative symlink
-        relative_path="$(realpath --relative-to="$(dirname "$target_path")" "$agent_file")"
+        relative_path="$(rel_path "$agent_file" "$(dirname "$target_path")")"
         ln -s "$relative_path" "$target_path"
 
         [ "$VERBOSE" = true ] && log_info "  → Linked $agent_name"
-        ((LINKED_AGENTS++))
+        LINKED_AGENTS=$((LINKED_AGENTS + 1))
     fi
 done
 
@@ -540,24 +553,29 @@ fi
 
 echo ""
 
-# Step 8.7: Optional external tools - rtk (Homebrew CLI)
+# Step 8.7: Optional external tools - rtk (token-saving CLI proxy)
+# rtk is installed with Homebrew on macOS; 'rtk init -g' then installs its global
+# Claude Code hook + RTK.md. On Windows install.ps1 uses winget instead.
 log_info "Step 8.7: Optional external tools (rtk)..."
 
 install_rtk="n"
 if [ "$INTERACTIVE" = true ]; then
-    read -p "Install rtk? (requires Homebrew) (y/n) [n]: " install_rtk
+    read -p "Install rtk? (token-saving CLI proxy, requires Homebrew) (y/n) [n]: " install_rtk
 fi
 
 if [ "$install_rtk" = "y" ] || [ "$install_rtk" = "Y" ]; then
     if command -v brew >/dev/null 2>&1; then
         log_info "  Installing rtk via Homebrew..."
-        if brew install rtk; then
-            log_success "✓ rtk installed"
+        if brew install rtk && rtk init -g; then
+            log_success "✓ rtk installed and hooked into Claude Code (global)"
+            log_warning "  Restart Claude Code so the hook is loaded."
         else
-            log_warning "  ⚠ rtk installation failed. Retry manually: brew install rtk"
+            log_warning "  ⚠ rtk installation failed. Retry manually: brew install rtk && rtk init -g"
         fi
     else
-        log_warning "  ⚠ brew not found. Install Homebrew first: https://brew.sh/"
+        log_warning "  ⚠ brew not found. Install Homebrew (https://brew.sh/) or use:"
+        log_warning "    curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh"
+        log_warning "    then run: rtk init -g"
     fi
 else
     log_info "  Skipped rtk installation"

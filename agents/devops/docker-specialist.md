@@ -1,5 +1,6 @@
 ---
-name: Docker Specialist
+name: docker-specialist
+description: Docker specialist. Use for writing or optimizing Dockerfiles and Docker Compose setups.
 expertise: [Docker, Docker Compose, Containerization, DevOps]
 model: haiku
 version: 1.1.0

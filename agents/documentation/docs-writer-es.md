@@ -1,5 +1,6 @@
 ---
-name: Documentation Writer (ES)
+name: docs-writer-es
+description: Technical writer in Spanish. Use for writing or improving CLAUDE.md, README.md, API docs, and code documentation optimized for LLMs and humans.
 expertise: [Technical Writing, CLAUDE.md, README.md, API Docs, Code Documentation]
 model: sonnet
 version: 1.0.0

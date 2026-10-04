@@ -1,4 +1,4 @@
-# Claude Config Installation Script
+﻿# Claude Config Installation Script
 # Installs skills, agents, and configuration for Claude Code projects
 
 param(
@@ -23,6 +23,13 @@ function Write-Success { Write-ColorOutput Green $args }
 function Write-Info { Write-ColorOutput Cyan $args }
 function Write-Warning { Write-ColorOutput Yellow $args }
 function Write-Error { Write-ColorOutput Red $args }
+
+# Relative path from directory $From to $To (PowerShell 5.1 has no GetRelativePath)
+function Get-RelativePath($From, $To) {
+    $fromUri = [Uri]($From.TrimEnd('\', '/') + [IO.Path]::DirectorySeparatorChar)
+    $relative = [Uri]::UnescapeDataString($fromUri.MakeRelativeUri([Uri]$To).ToString())
+    return $relative.Replace('/', [IO.Path]::DirectorySeparatorChar)
+}
 
 # Banner
 Write-Info @"
@@ -129,7 +136,7 @@ if ($Interactive -and -not $Preset) {
 
     do {
         $selection = Read-Host "Select preset [1-$($PresetNames.Count)]"
-        $selectionNum = [int]$selection
+        $selectionNum = $selection -as [int]
     } while ($selectionNum -lt 1 -or $selectionNum -gt $PresetNames.Count)
 
     $Preset = $PresetNames[$selectionNum - 1]
@@ -165,7 +172,6 @@ $AllSkills = Get-ChildItem -Path "$ScriptDir\skills" -Recurse -Filter "SKILL.md"
         Name = $skillName
         Category = $category
         Path = $skillPath
-        RelativePath = $skillPath.Replace("$ScriptDir\", "")
     }
 }
 
@@ -241,8 +247,8 @@ foreach ($skillName in $SelectedSkills) {
         # Create symlink or copy
         try {
             if ($CanCreateSymlinks) {
-                # Calculate relative path from .claude/skills to skill location
-                $relativePath = "..\..\$($skill.RelativePath)"
+                # Relative path from .claude/skills to the skill inside .claude-config
+                $relativePath = Get-RelativePath (Split-Path $targetPath -Parent) $skill.Path
                 New-Item -ItemType SymbolicLink -Path $targetPath -Target $relativePath | Out-Null
                 if ($Verbose) { Write-Info "  → Linked $skillName (symlink)" }
             } else {
@@ -282,7 +288,6 @@ $AllAgents = Get-ChildItem -Path "$ScriptDir\agents" -Recurse -Filter "*.md" | W
         Name = $agentName
         Category = $category
         Path = $_.FullName
-        RelativePath = $_.FullName.Replace("$ScriptDir\", "")
     }
 }
 
@@ -333,7 +338,7 @@ foreach ($agentName in $SelectedAgents) {
         # Create symlink or copy
         try {
             if ($CanCreateSymlinks) {
-                $relativePath = "..\..\$($agent.RelativePath)"
+                $relativePath = Get-RelativePath (Split-Path $targetPath -Parent) $agent.Path
                 New-Item -ItemType SymbolicLink -Path $targetPath -Target $relativePath | Out-Null
                 if ($Verbose) { Write-Info "  → Linked $agentName (symlink)" }
             } else {
@@ -555,25 +560,44 @@ if ($installCaveman -eq "y" -or $installCaveman -eq "Y") {
 
 Write-Info ""
 
-# Step 8.7: Optional external tools - rtk (Homebrew CLI)
+# Step 8.7: Optional external tools - rtk (token-saving CLI proxy)
+# rtk is installed with winget on Windows (Homebrew if available, e.g. pwsh on macOS);
+# 'rtk init -g' then installs its global Claude Code hook + RTK.md.
 Write-Info "Step 8.7: Optional external tools (rtk)..."
 
 $installRtk = "n"
 if ($Interactive) {
-    $installRtk = Read-Host "Install rtk? (requires Homebrew) (y/n) [n]"
+    $installRtk = Read-Host "Install rtk? (token-saving CLI proxy, requires winget) (y/n) [n]"
 }
 
 if ($installRtk -eq "y" -or $installRtk -eq "Y") {
-    if (Get-Command brew -ErrorAction SilentlyContinue) {
+    $rtkInstalled = $false
+    if (Get-Command winget -ErrorAction SilentlyContinue) {
+        Write-Info "  Installing rtk via winget..."
+        winget install --id rtk-ai.rtk -e --accept-source-agreements --accept-package-agreements
+        $rtkInstalled = ($LASTEXITCODE -eq 0)
+    } elseif (Get-Command brew -ErrorAction SilentlyContinue) {
         Write-Info "  Installing rtk via Homebrew..."
         brew install rtk
-        if ($LASTEXITCODE -eq 0) {
-            Write-Success "✓ rtk installed"
-        } else {
-            Write-Warning "  ⚠ rtk installation failed. Retry manually: brew install rtk"
-        }
+        $rtkInstalled = ($LASTEXITCODE -eq 0)
     } else {
-        Write-Warning "  ⚠ brew not found. rtk is installed via Homebrew: https://brew.sh/"
+        Write-Warning "  ⚠ winget not found. Download rtk.exe from https://github.com/rtk-ai/rtk/releases"
+        Write-Warning "    and put it on your PATH (e.g. C:\Users\<you>\.local\bin), then run: rtk init -g"
+    }
+
+    if ($rtkInstalled) {
+        # winget updates PATH for new terminals only; resolve rtk for this session
+        $rtkCmd = (Get-Command rtk -ErrorAction SilentlyContinue).Source
+        if ($rtkCmd) {
+            & $rtkCmd init -g
+            Write-Success "✓ rtk installed and hooked into Claude Code (global)"
+            Write-Warning "  Restart Claude Code so the hook is loaded."
+        } else {
+            Write-Success "✓ rtk installed"
+            Write-Warning "  Open a new terminal and run: rtk init -g"
+        }
+    } elseif (Get-Command winget -ErrorAction SilentlyContinue) {
+        Write-Warning "  ⚠ rtk installation failed. Retry manually: winget install rtk-ai.rtk; rtk init -g"
     }
 } else {
     Write-Info "  Skipped rtk installation"
